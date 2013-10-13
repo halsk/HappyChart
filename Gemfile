@@ -48,4 +48,10 @@ gem 'devise'
 gem 'rails_admin'
 
 
+group :deployment do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'capistrano_colors'
+end
+
 
