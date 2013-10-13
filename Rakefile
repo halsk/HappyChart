@@ -3,4 +3,6 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+ENV["SKIP_RAILS_ADMIN_INITIALIZER"] = 'true'
+
 HappyChart::Application.load_tasks
