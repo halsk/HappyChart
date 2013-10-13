@@ -54,4 +54,7 @@ group :deployment do
   gem 'capistrano_colors'
 end
 
+group :production do
+  gem 'mysql2'
+end
 
