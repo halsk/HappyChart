@@ -43,3 +43,9 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'typus', :git => 'https://github.com/fesplugas/typus.git'
+gem 'devise'
+gem 'rails_admin'
+
+
+
