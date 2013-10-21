@@ -17,3 +17,9 @@ div.overlay {
  height: 320px;
 }
 
+.town {
+  text-indent: 24px;
+  background-image: url(<%= asset_path 'icon_town.png' %>);
+  background-repeat: no-repeat;
+  background-position: left center;
+}
