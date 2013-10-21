@@ -18,8 +18,16 @@ div.overlay {
 }
 
 .town {
-  text-indent: 24px;
+  padding-left: 24px;
   background-image: url(<%= asset_path 'icon_town.png' %>);
   background-repeat: no-repeat;
   background-position: left center;
+  background-size: 20px 22px;
+}
+.city {
+  padding-left: 24px;
+  background-image: url(<%= asset_path 'icon_city.png' %>);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 20px 22px;
 }
