@@ -1,130 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Happy Chart</title>
-  <link rel="stylesheet" href="/assets/Bootstrap.css">
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" />
-  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-  <script src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="http://code.highcharts.com/highcharts-more.js"></script>
-<!--    <script src="http://code.highcharts.com/modules/exporting.js"></script> -->
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:site_name" content="Happy Chart" />
+    <meta property="og:title" content="Happy Chart" />
+    <meta property="og:image" content="http://hc.lisra.jp/mobile/images/fbBaseChart.png" />
+    <meta property="og:summary" content="みんなの幸せを比べてみよう" />
+    <meta property="og:description" content="Happy Chart では、自分の幸せをチャートにして、確認することができます。また他の地域の人と比較もできます" />
+    <meta property="og:url" content="http://hc.lisra.jp/mobile/" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Happy Chart</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <%= stylesheet_link_tag "Bootstrap" %>
+    <%= stylesheet_link_tag "charts" %>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <%= javascript_include_tag "jquery.cookie" %>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <%= javascript_include_tag "main.js" %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-    <script>
-        $(window).load(function () {
+  </head>
+  <body>
+    <div id="fb-root"></div>
 
-  $('#container0').highcharts({
-      chart: { polar: true, type: 'area' },
-      title: {      text: '<span style="vertical-align: top;"><img src="./images/icon_town.png" alt="" width="20" height="22" style="margin-right: 4px" />島根県隠岐郡海士町の幸せ</span>', useHTML: true   },
-      pane: {size: '80%'  },
-      xAxis: {
-          categories: ['教育・学力', 'コミュニティ<br>(仲間)', '生活環境', '安心安全な社会',
-                  '自然環境', '仕事','所得','自由な時間'],
-          tickmarkPlacement: 'on',
-          lineWidth: 0,
-      },
-      yAxis: {
-          gridLineInterpolation: 'polygon',
-          lineWidth: 0,
-          max: 500,
-          min: 0
-      },
-      tooltip: {
-           shared: true,
-          pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
-    },
-      legend: {
-                enabled: false,
-                align: 'right',
-                verticalAlign: 'top',
-                y: 70,
-                layout: 'vertical'
-      },
-     series: [ {
-                name: '海士町',
-                data: [200, 490, 420, 600, 560, 440,300,600],
-            color: '#66cc00',
-                pointPlacement: 'on',
-            }]
-
-    });
-
-  $('#container1').highcharts({
-      chart: { polar: true, type: 'area' },
-      title: {      text: '<span style="vertical-align: top;"><img src="./images/icon_city.png" alt="" width="20" height="22" style="margin-right: 4px" />東京都の幸せ</span>', useHTML: true   },
-      pane: {size: '80%'  },
-      xAxis: {
-          categories: ['教育・学力', 'コミュニティ<br>(仲間)', '生活環境', '安心安全な社会',
-                  '自然環境', '仕事','所得','自由な時間'],
-          tickmarkPlacement: 'on',
-          lineWidth: 0,
-      },
-      yAxis: {
-          gridLineInterpolation: 'polygon',
-          lineWidth: 0,
-          max: 500,
-          min: 0
-      },
-      tooltip: {
-           shared: true,
-          pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
-            },
-            legend: {
-                enabled: false,
-                align: 'right',
-                verticalAlign: 'top',
-                y: 70,
-                layout: 'vertical'
-            },
-
-            series: [ {
-                name: '東京都',
-                data: [600, 190, 600, 150, 200, 400,500,200],
-                pointPlacement: 'off'
-            }],
+    <div data-role="page" data-theme="c">
+      <div data-role="header" data-position="inline" data-theme="f">
+  <h1>Happy Chart</h1>
+      </div>
+      <center><h2>あなたは何を大切にしていますか?</h2></center>
+      <center>人はそれぞれ幸せは違います。<br>住んでいる地域によっても違います。<br>あなたの幸せ、比較してみませんか？</center>
+      <br>
+      <br>
+      <div id="charts">
+        <div class="chart"><div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div><%= image_tag("chart.png", :class=>"overlay", :alt=>"") %></div>
+  <div class="chart"><div id="container1" style="width: 320px; height: 300px; margin: 0 auto; "></div><img class="overlay" src="/assets/images/chart.png" alt="" /></div>
+      </div>　
+      <br>
+      <center>
+  <p>
+    幸せの形、人それぞれですよね？<br>
+    都会が好きな人も、田舎が好きな人も。。<br>
+    島根県の島、
+    <a href="http://www.town.ama.shimane.jp/">隠岐郡海士町</a>では<br>
+    島独自の幸せを追求して、<br>ついに転入増に達成したそうです。<br>
+  </p>
+  <br>
+  <p>
+    Happy Chart では、みなさんの協力により、<br>
+    各地域での幸せの姿を明らかにしたいと思います。<br>
+    集まった情報は匿名の形のみで利用させていただきます。<br>
+  </p>
+  <br>
+      </center>
 
 
-        });
+      <center><h5> facebook 経由だと、少しだけ入力が楽になります。<h5>  </center>
+      <button  data-role="button" data-icon="check" data-iconpos="right" data-theme="b" data-ajax="false" onclick="fblogin()" > facebook経由ではじめる</button>
+      <button data-role="button" data-icon="check" data-iconpos="right" data-ajax="false" onclick="gohome()" data-theme="c">ログインせずにはじめる</button>
 
-
-});
-</script>
-<style type="text/css"><!--
-.chart {
-  position: relative;
-  width: 320px;
-  height: 300px;
-  float: left;
-  margin-bottom: 50px;
-}
-.overlay {
-  position: absolute;
-  width: 320px;
-  height: 300px;
-  z-index: 999;
-  top: 0px;
-  left: 0px;
-}
-
-#charts {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
---></style>
-
-</head>
-<body>
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
-<%= yield %>
-
-</body>
+    </div>
+  </body>
 </html>

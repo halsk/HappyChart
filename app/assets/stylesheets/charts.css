@@ -1,0 +1,22 @@
+.chart {
+    display: inline-block;
+    position: relative;
+    width: 320px;
+    height: 300px;
+    margin-bottom: 50px;
+}
+.overlay {
+    position: absolute;
+    width: 320px;
+    height: 300px;
+    z-index: 999;
+    top: 0px;
+    left: 0px;
+}
+
+#charts {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
