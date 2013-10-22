@@ -115,169 +115,37 @@
         <h2>アンケート</h2>
 
         <form action="makechart.html" method="get" data-ajax="false">
-          <div data-role="fieldcontain" >
+            <% @count = 1; @max = @categories.count %>
             <% @categories.each do |category| %>
-<div class="cap">
-  <div class="t"><%= category.title %></div>
-</div>
-            <% end %>
-<div class="cap">
-<%= image_tag("icon01.png", :class=>"icon") %> （１問目/８問中）<div class="t">仕事</div><br>
-・仕事のやりがいや、就職・働く環境について、満足していますか？
-</div>
+            <div data-role="fieldcontain">
+            <div class="cap">
+              <%= image_tag(category.icon_name, :class => "icon") %> （<%=@count%>問目/<%=@max%>問中）<div class="t"><%= category.title %></div><br/>
+            </div>
+              <% category.questions.each do |question| %>
+                ・<%=question.title %>
               <fieldset data-role="controlgroup" data-type="horizontal"  align="center">
-              <input type="radio" name="work_choice" id="work_choice-5" value="5" />
-              <label for="work_choice-5">満足</label>
-              <input type="radio" name="work_choice" id="work_choice-4" value="4" />
-              <label for="work_choice-4">やや満足</label>
-              <input type="radio" name="work_choice" id="work_choice-3" value="3"  checked="checked"/>
-              <label for="work_choice-3">普通</label>
-              <input type="radio" name="work_choice" id="work_choice-2" value="2" />
-              <label for="work_choice-2">やや不満</label>
-              <input type="radio" name="work_choice" id="work_choice-1" value="1" />
-              <label for="work_choice-1">不満</label>
+                <input type="radio" name="<%=question.field_name%>-5" id="<%=question.field_name%>-5" value="5" />
+                <label for="<%=question.field_name%>-5">満足</label>
+                <input type="radio" name="<%=question.field_name%>-4" id="<%=question.field_name%>-4" value="4" />
+                <label for="<%=question.field_name%>-4">やや満足</label>
+                <input type="radio" name="<%=question.field_name%>-3" id="<%=question.field_name%>-3" value="3" checked="checked" />
+                <label for="<%=question.field_name%>-3">普通</label>
+                <input type="radio" name="<%=question.field_name%>-2" id="<%=question.field_name%>-2" value="2" />
+                <label for="<%=question.field_name%>-2">やや不満</label>
+                <input type="radio" name="<%=question.field_name%>-1" id="<%=question.field_name%>-1" value="1" />
+                <label for="<%=question.field_name%>-1">不満</label>
               </fieldset>
-              </div>
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon02.png" /> （２問目/８問中）<div class="t">所得</div><br>
-・現在の収入について（未就労の方は、今の場所で期待できる収入について）満足していますか？
-</div>
-              <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-
-              <input type="radio" name="income_choice" id="income_choice-5" value="5" />
-              <label for="income_choice-5">満足</label>
-              <input type="radio" name="income_choice" id="income_choice-4" value="4" />
-              <label for="income_choice-4">やや満足</label>
-              <input type="radio" name="income_choice" id="income_choice-3" value="3" checked="checked"/>
-              <label for="income_choice-3">普通</label>
-              <input type="radio" name="income_choice" id="income_choice-2" value="2" />
-              <label for="income_choice-2">やや不満</label>
-              <input type="radio" name="income_choice" id="income_choice-1" value="1" />
-              <label for="income_choice-1">不満</label>
-              </fieldset>
-           </div>
-
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon07.png" /> （３問目/８問中）<div class="t">自由な時間</div><br>
-・自分が自由に使える時間や、音楽・演劇・スポーツ・娯楽などを楽しむ環境について満足していますか？
-</div>
-                                            <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-               <input type="radio" name="freetime_choice" id="freetime_choice-5" value="5" />
-              <label for="freetime_choice-5">満足</label>
-              <input type="radio" name="freetime_choice" id="freetime_choice-4" value="4" />
-              <label for="freetime_choice-4">やや満足</label>
-              <input type="radio" name="freetime_choice" id="freetime_choice-3" value="3" checked="checked"/>
-              <label for="freetime_choice-3">普通</label>
-              <input type="radio" name="freetime_choice" id="freetime_choice-2" value="2" />
-              <label for="freetime_choice-2">やや不満</label>
-              <input type="radio" name="freetime_choice" id="freetime_choice-1" value="1" />
-              <label for="freetime_choice-1">不満</label>
-              </fieldset>
-           </div>
-
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon03.png" /> （４問目/８問中）<div class="t">教育・学力</div><br>
-・自分が興味あることを学習できる環境や、子供の育てやすさ、教育環境について満足していますか？
-</div>
-              <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-              <input type="radio" name="edu_choice" id="edu_choice-5" value="5" />
-              <label for="edu_choice-5">満足</label>
-              <input type="radio" name="edu_choice" id="edu_choice-4" value="4" />
-              <label for="edu_choice-4">やや満足</label>
-              <input type="radio" name="edu_choice" id="edu_choice-3" value="3" checked="checked"/>
-              <label for="edu_choice-3">普通</label>
-              <input type="radio" name="edu_choice" id="edu_choice-2" value="2" />
-              <label for="edu_choice-2">やや不満</label>
-              <input type="radio" name="edu_choice" id="edu_choice-1" value="1" />
-              <label for="edu_choice-1">不満</label>
-              </fieldset>
-           </div>
-
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon04.png" /> （５問目/８問中）<div class="t">コミュニティ（仲間）</div><br>
-・家族や友人など大切な人と過す時間についてや、人と新しく出会える機会について満足していますか？
-</div>
-              <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-              <input type="radio" name="commu_choice" id="commu_choice-5" value="5" />
-              <label for="commu_choice-5">満足</label>
-              <input type="radio" name="commu_choice" id="commu_choice-4" value="4" />
-              <label for="commu_choice-4">やや満足</label>
-              <input type="radio" name="commu_choice" id="commu_choice-3" value="3" checked="checked"/>
-              <label for="commu_choice-3">普通</label>
-              <input type="radio" name="commu_choice" id="commu_choice-2" value="2" />
-              <label for="commu_choice-2">やや不満</label>
-              <input type="radio" name="commu_choice" id="commu_choice-1" value="1" />
-              <label for="commu_choice-1">不満</label>
-              </fieldset>
-           </div>
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon05.png" /> （６問目/８問中）<div class="t">生活環境</div><br>
-・交通や施設面等での日常生活の利便性や、今暮している家の住みやすさについて満足していますか？
-</div>
-              <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-              <input type="radio" name="env_choice" id="env_choice-5" value="5" />
-              <label for="env_choice-5">満足</label>
-              <input type="radio" name="env_choice" id="env_choice-4" value="4" />
-              <label for="env_choice-4">やや満足</label>
-              <input type="radio" name="env_choice" id="env_choice-3" value="3" checked="checked"/>
-              <label for="env_choice-3">普通</label>
-              <input type="radio" name="env_choice" id="env_choice-2" value="2" />
-              <label for="env_choice-2">やや不満</label>
-              <input type="radio" name="env_choice" id="env_choice-1" value="1" />
-              <label for="env_choice-1">不満</label>
-              </fieldset>
-           </div>
-
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon08.png" /> （７問目/８問中）<div class="t">安心安全な社会</div><br>
-・各種手続きやゴミ処理など行政の基本的なサービスや、町の医療体制や福祉サービスについて満足していますか？
-</div>
-              <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-              <input type="radio" name="safety_choice" id="safety_choice-5" value="5" />
-              <label for="safety_choice-5">満足</label>
-              <input type="radio" name="safety_choice" id="safety_choice-4" value="4" />
-              <label for="safety_choice-4">やや満足</label>
-              <input type="radio" name="safety_choice" id="safety_choice-3" value="3" checked="checked"/>
-              <label for="safety_choice-3">普通</label>
-              <input type="radio" name="safety_choice" id="safety_choice-2" value="2" />
-              <label for="safety_choice-2">やや不満</label>
-              <input type="radio" name="safety_choice" id="safety_choice-1" value="1" />
-              <label for="safety_choice-1">不満</label>
-              </fieldset>
-           </div>
-
-          <div data-role="fieldcontain">
-<div class="cap">
-<img class="icon"  src="./images/icon08.png" /> （８問目/８問中）<div class="t">自然環境</div><br>
-・周りの自然環境の豊かさや、山林・農耕地・漁場など自然資源の管理状態について満足していますか？
-</div>
-              <fieldset data-role="controlgroup" data-type="horizontal" align="center">
-              <input type="radio" name="nature_choice" id="nature_choice-5" value="5" />
-              <label for="nature_choice-5">満足</label>
-              <input type="radio" name="nature_choice" id="nature_choice-4" value="4" />
-              <label for="nature_choice-4">やや満足</label>
-              <input type="radio" name="nature_choice" id="nature_choice-3" value="3" checked="checked"/>
-              <label for="nature_choice-3">普通</label>
-              <input type="radio" name="nature_choice" id="nature_choice-2" value="2" />
-              <label for="nature_choice-2">やや不満</label>
-              <input type="radio" name="nature_choice" id="nature_choice-1" value="1" />
-              <label for="nature_choice-1">不満</label>
-              </fieldset>
-           </div>
-          <div data-role="fieldcontain">
+              <% end %>
+            <% @count += 1 %>
+            <% end %>
+          </div>
 <h3>あと少しだけ！あなたについて教えてください<br>
 よろしくお願いします。 </h3>
 </div>
 
           <div data-role="fieldcontain" data-theme="a">
               <fieldset data-role="controlgroup" data-type="horizontal">
-              <legend><img class="icon"  src="./images/icon10.png" />家庭環境</legend>
+                <legend><%=image_tag("icon10.png", :class=>"icon") %>家庭環境</legend>
               <input type="radio" name="fam_choice" id="fam_choice-un" value="un" checked="checked" data-theme="a"/>
               <label for="fam_choice-un">未婚</label>
               <input type="radio" name="fam_choice" id="fam_choice-mn" value="mn" data-theme="a" />
@@ -290,7 +158,7 @@
 
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup" data-type="horizontal" >
-              <legend><img class="icon"  src="./images/icon09.png" />性別</legend>
+                <legend><%=image_tag("icon09.png", :class=>"icon") %>性別</legend>
               <input type="radio" name="sex" id="sex-male" value="male" checked="checked"  data-theme="a" />
               <label for="sex-male">男性</label>
               <input type="radio" name="sex" id="sex-female" value="female"  data-theme="a" />
@@ -300,7 +168,7 @@
 
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup" data-theme="a"/>
-              <legend><img class="icon"  src="./images/icon11.png" />職業</legend>
+                <legend><%=image_tag("icon11.png", :class=>"icon")%>職業</legend>
               <input type="radio" name="job_choice" id="job_choice-1" value="1" data-theme="b" />
               <label for="job_choice-1">会社員</label>
               <input type="radio" name="job_choice" id="job_choice-2" value="2" data-theme="b"/>
@@ -324,11 +192,11 @@
           </div>
 
           <div data-role="fieldcontain">
-            <label for="location"><img class="icon"  src="./images/icon12.png" />郵便番号(居住地）</label>
+            <label for="location"><%=image_tag("icon12.png", :class=>"icon")%>郵便番号(居住地）</label>
             <input type="text" name="location" id="location" value="" placeholder="999-9999" />
                                      </div>
           <div data-role="fieldcontain">
-            <label for="birthyear"><img class="icon"  src="./images/icon13.png" />生年(西暦):</label>
+            <label for="birthyear"><%=image_tag("icon13.png", :class=>"icon")%>生年(西暦):</label>
                   <input type="text" name="birthyear" id="birthyear" value="" placeholder="1900" />
                                         </div>
 
