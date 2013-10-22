@@ -1,41 +1,37 @@
     <div data-role="page" data-theme="c">
       <div data-role="header" data-position="inline" data-theme="f">
-        <h1>Happy Chart</h1>
-<!--        <div data-role="navbar">
-          <ul>
-            <li><a href="index.html" data-icon="home">ホーム</a></li>
-            <li><a href="history.html" data-icon="star">私の歴史</a></li>
-            <li><a href="chart.html" data-icon="star" class="ui-btn-active">チャート</a></li>
-            <li><a href="s.html" data-icon="grid">みんなのハッピー</a></li>
-            <li><a href="nav.html" data-icon="search">Nav</a></li>
-            <li><a href="forms.html" data-icon="gear">Forms</a></li>
-
-          </ul>
-        </div>
--->
+  <h1>Happy Chart</h1>
       </div>
-
       <center><h2>あなたは何を大切にしていますか?</h2></center>
-<center>人はそれぞれ幸せは違います。<br>住んでいる地域によっても違います。<br>あなたの幸せ、比較してみませんか？</center>
-<br>
-　
-<br>
-<div id="charts">
-<div class="chart"><div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div><img class="overlay" src="/assets/chart.png" alt="" /></div>
-<div class="chart"><div id="container1" style="width: 320px; height: 300px; margin: 0 auto; "></div><img class="overlay" src="/assets/chart.png" alt="" /></div>
-</div>　
-<br>
+      <center>人はそれぞれ幸せは違います。<br>住んでいる地域によっても違います。<br>あなたの幸せ、比較してみませんか？</center>
+      <br>
+      <br>
+      <div id="charts">
+        <div class="chart"><div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div><%= image_tag("chart.png", :class=>"overlay", :alt=>"") %></div>
+        <div class="chart"><div id="container1" style="width: 320px; height: 300px; margin: 0 auto; "></div><%= image_tag("chart.png", :class=>"overlay", :alt=>"") %></div>
+      </div>　
+      <br>
+      <center>
+  <p>
+    幸せの形、人それぞれですよね？<br>
+    都会が好きな人も、田舎が好きな人も。。<br>
+    島根県の島、
+    <a href="http://www.town.ama.shimane.jp/">隠岐郡海士町</a>では<br>
+    島独自の幸せを追求して、<br>ついに転入増に達成したそうです。<br>
+  </p>
+  <br>
+  <p>
+    Happy Chart では、みなさんの協力により、<br>
+    各地域での幸せの姿を明らかにしたいと思います。<br>
+    集まった情報は匿名の形のみで利用させていただきます。<br>
+  </p>
+  <br>
+      </center>
 
-<br>
 
-
-
-          <div data-role="content" data-theme="b" style="clear:both">
-              <a href="facebook.html" data-role="button" data-icon="check" data-iconpos="right">Facebook経由ではじめる</a></li>
-              <a href="twitter.html" data-role="button" data-icon="check" data-iconpos="right" data-theme="f">Twitter経由ではじめる</a></li>
-              <a href="home.html" data-role="button" data-icon="check" data-iconpos="right" data-theme="c">ログインせずにはじめる</a></li>
-          </div>
-
-
+      <center><h5> facebook 経由だと、少しだけ入力が楽になります。<h5>  </center>
+      <button  data-role="button" data-icon="check" data-iconpos="right" data-theme="b" data-ajax="false" onclick="fblogin()" > facebook経由ではじめる</button>
+      <button data-role="button" data-icon="check" data-iconpos="right" data-ajax="false" onclick="gohome()" data-theme="c">ログインせずにはじめる</button>
 
     </div>
+
