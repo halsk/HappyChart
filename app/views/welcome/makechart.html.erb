@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Happy Chart</title>
+		<link rel="stylesheet" href="themes/Bootstrap.css">
+		<link rel="stylesheet" href="themes/chart.css">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://code.highcharts.com/highcharts-more.js"></script>
+		<script src="js/ncmb-1.0.0.js"></script>
+<!--		<script src="http://code.highcharts.com/modules/exporting.js"></script> -->
+
+		<script src="js/dochart.js"></script>
+
+
+
+<style type="text/css"><!--
+.chart {
+	position: relative;
+	width: 320px;
+	height: 300px;
+	margin-bottom: 50px;
+}
+.overlay {
+	position: absolute;
+	width: 320px;
+	height: 300px;
+	z-index: 999;
+	top: 0px;
+	left: 0px;
+}
+
+#charts {
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+--></style>
+
+	</head>
+	<body>
+		<div data-role="page" data-theme="b">
+			<div data-role="header" data-position="inline" data-theme="f">
+				<h1>Happy Chart</h1>
+<!--				<div data-role="navbar">
+					<ul>
+						<li><a href="index.html" data-icon="home">ホーム</a></li>
+						<li><a href="history.html" data-icon="star">私の歴史</a></li>
+						<li><a href="chart.html" data-icon="star" class="ui-btn-active">チャート</a></li>
+						<li><a href="s.html" data-icon="grid">みんなのハッピー</a></li>
+						<li><a href="nav.html" data-icon="search">Nav</a></li>
+						<li><a href="forms.html" data-icon="gear">Forms</a></li>
+
+					</ul>
+				</div>
+-->
+			</div>
+<center>
+  <div class="chart">
+<div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div>
+    <img class="overlay" src="./images/chart.png" alt="" />
+  </div>
+
+あなたのハッピー、どんな形でしたか？<br>
+みんなに伝えたり、<br>
+他の人のハッピーと比較してみましょう
+</center>
+
+
+
+
+				<div data-role="content" data-theme="b" style="clear:both">
+					<a href="fbchart.html" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" >Facebookに投稿する</a>
+					<a href="japan.html" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" data-theme="f" >他の地域と比較する</a> 
+					<a href="home.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-ajax="false" data-theme="d"  >やりなおす</a>
+				</div>
+			  
+		</div>
+<script>
+//    console.log("set load!");
+    window.setTimeout(doit,1);
+</script>
+
+	</body>
+</html>
