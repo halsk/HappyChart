@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta property="og:site_name" content="Happy Chart" />
+    <meta property="og:title" content="Happy Chart" />
+    <meta property="og:image" content="http://hc.lisra.jp/mobile/images/fbBaseChart.png" />
+    <meta property="og:summary" content="みんなの幸せを比べてみよう" />
+    <meta property="og:description" content="Happy Chart では、自分の幸せをチャートにして、確認することができます。また他の地域の人と比較もできます" />
+    <meta property="og:url" content="http://hc.lisra.jp/mobile/" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Happy Chart</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="themes/Bootstrap.css" />
+    <link rel="stylesheet" href="themes/charts.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="js/ncmb-1.0.0.js"></script>
+
+    <script src="js/diff.js">    </script>
+
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header" data-position="inline" data-theme="b">
+	<h1 data-theme="c">Happy Chart</h1>
+	<div data-role="navbar" data-theme="b">
+	  <ul>
+	    <li><a href="home.html" data-icon="home"  data-ajax="false">ホーム</a></li>
+<!--	    <li><a href="history.html" data-icon="star" data-ajax="false">私の歴史</a></li> -->
+	    <li><a href="chart.html" data-icon="star" data-ajax="false">私のハッピー</a></li>
+	    <li><a href="japan.html" data-icon="grid" class="ui-btn-active"> みんなのハッピー</a></li>
+	  </ul>
+	</div>
+      </div>
+    <div data-role="content" >
+      <br>
+      <div id="charts">
+	<div class="chart"><div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div><img class="overlay" src="./images/chart.png" alt="" /></div>
+	<div class="chart"><div id="container1" style="width: 320px; height: 300px; margin: 0 auto; "></div><img class="overlay" src="./images/chart.png" alt="" /></div>
+      </div>　
+      <br>
+      <center>
+
+      </center>
+
+      <button data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" onclick="gojapan()" data-theme="b">他の地域と比較する</button>
+      
+    </div>
+  </body>
+</html>
