@@ -71,7 +71,15 @@ function calcAverage(categories) {
 function calcTotal(averages) {
   var total = 0;
   for (i = 0; i < averages.length; i++ ){
-      total += averages[i]
+      total +=  averages[i]
+    }
+  return total;
+}
+
+function joinTotal(averages) {
+  var total = "";
+  for (i = 0; i < averages.length; i++ ){
+      total += "" + averages[i]
     }
   return total;
 }
@@ -91,12 +99,12 @@ var doit = function() {
       }
   });
   var averages = calcAverage(categories);
-  var cval = calcTotal(averages);
+  var cval = joinTotal(averages);
   var averages100 = [];
   for (i = 0; i < averages.length; i++){
     averages100.push(averages[i] * 100);
   }
-  var shappy = (-8 + cval) * 100 /32;
+  var shappy = (-8 + calcTotal(averages)) * 100 /32;
 
   // put values into chart
   //    console.log("cval="+cval);
