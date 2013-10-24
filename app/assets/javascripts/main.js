@@ -13,7 +13,7 @@ var gohome = function(){
     $.removeCookie("birthday");
     $.removeCookie("location");
     $.removeCookie("hometown");
-    document.location="home.html";
+    document.location="welcome/home";
 }
 
 var fblogin = function(){
