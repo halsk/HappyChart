@@ -1,81 +1,63 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Happy Chart</title>
-    <link rel="stylesheet" href="themes/Bootstrap.css">
-    <link rel="stylesheet" href="themes/chart.css">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" />
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/highcharts-more.js"></script>
-    <script src="http://code.highcharts.com/modules/exporting.js"></script>
-    <script src="js/ncmb-1.0.0.js"></script>
-
-    <script src="js/keepchart.js"></script>
-    <script src="js/tweet.js"></script>
+<% content_for :head do %>
+  <%= javascript_include_tag 'keepchart.js' %>
+  <%= javascript_include_tag 'tweet.js' %>
+  <%= javascript_include_tag 'oauth.js' %>
 
     <style type="text/css"><!--
-			      .chart {
-			      position: relative;
-			      width: 320px;
-			      height: 300px;
-			      margin-bottom: 50px;
-			      }
-			      .overlay {
-			      position: absolute;
-			      width: 320px;
-			      height: 300px;
-			      z-index: 999;
-			      top: 0px;
-			      left: 0px;
-			      }
+            .chart {
+            position: relative;
+            width: 320px;
+            height: 300px;
+            margin-bottom: 50px;
+            }
+            .overlay {
+            position: absolute;
+            width: 320px;
+            height: 300px;
+            z-index: 999;
+            top: 0px;
+            left: 0px;
+            }
 
-			      #charts {
-			      max-width: 100%;
-			      margin: 0 auto;
-			      }
+            #charts {
+            max-width: 100%;
+            margin: 0 auto;
+            }
 
-			     --></style>
+           --></style>
+<% end %>
 
-  </head>
-  <body>
     <div data-role="page" data-theme="b">
       <div data-role="header" data-position="inline" data-theme="f">
-	<h1>Happy Chart</h1>
-	<div data-role="navbar">
-	  <ul>
-	    <li><a href="index.html" data-icon="home" data-ajax="false">ホーム</a></li>
-	    <!--						<li><a href="history.html" data-icon="star" data-ajax="false">私の歴史</a></li> -->
-	    <li><a href="chart.html" data-icon="star" class="ui-btn-active">私のハッピー</a></li>
-	    <li><a href="japan.html" data-icon="grid" data-ajax="false">みんなのハッピー</a></li>
+  <h1>Happy Chart</h1>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="index" data-icon="home" data-ajax="false">ホーム</a></li>
+      <!--            <li><a href="history.html" data-icon="star" data-ajax="false">私の歴史</a></li> -->
+      <li><a href="chart" data-icon="star" class="ui-btn-active">私のハッピー</a></li>
+      <li><a href="japan" data-icon="grid" data-ajax="false">みんなのハッピー</a></li>
 
 
 
-	  </ul>
-	</div>
+    </ul>
+  </div>
       </div>
       <center>
-	<div class="chart">
-	  <div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div>
-	  <img class="overlay" src="./images/chart.png" alt="" />
-	</div>
+  <div class="chart">
+    <div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div>
+    <%= image_tag('chart.png', :class=>"overlay", :alt=>"") %>
+  </div>
       </center>
 
       <div data-role="content" data-theme="b" style="clear:both">
-	<a href="fbchart.html" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" >Facebookに投稿する</a>
-      <button data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" data-theme="e" onclick="tweet()" >Tweetする</button> 
-	<a href="home.html" data-role="button" data-icon="arrow-l" data-iconpos="left" data-ajax="false" data-theme="d"  >やりなおす</a>
+  <a href="fbchart" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" >Facebookに投稿する</a>
+      <button data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" data-theme="e" onclick="tweet()" >Tweetする</button>
+  <a href="home" data-role="button" data-icon="arrow-l" data-iconpos="left" data-ajax="false" data-theme="d"  >やりなおす</a>
       </div>
-      
+
     </div>
     <script>
       //    console.log("set load!");
       window.setTimeout(doit,1);
     </script>
 
-  </body>
-</html>
