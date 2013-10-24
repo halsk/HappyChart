@@ -5,6 +5,7 @@ HappyChart::Application.routes.draw do
   get "welcome/japan"
   get "welcome/diff"
   get "welcome/chart"
+  get "welcome/fbchart"
   devise_for :admin_users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.

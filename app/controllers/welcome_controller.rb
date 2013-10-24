@@ -3,7 +3,8 @@ class WelcomeController < ApplicationController
   def index
   end
   def home
-    @categories = Category.includes(:questions).where("form_id = 2").order(:order_num).references(:questions)
+    formid = Form.first
+    @categories = Category.includes(:questions).where("form_id = " + formid.id.to_s).order(:order_num).references(:questions)
   end
   def makechart
     formid = params[:formid]
