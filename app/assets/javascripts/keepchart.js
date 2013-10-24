@@ -42,7 +42,19 @@ var doit =  function () {
 			data: [val[0]*100, val[1]*100, val[2]*100, val[3]*100,
                                val[4]*100, val[5]*100, val[6]*100, val[7]*100],
 		            pointPlacement: 'on',
-		        }]
+		 }],
+	credits: {
+	    enabled: false
+	},
+	exporting:{ 
+	    buttons:{
+		contextButton:{
+		    enabled: false
+		}
+	    }
+	}
+
+
 		    
 		    });
 
