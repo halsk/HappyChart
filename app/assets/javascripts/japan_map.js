@@ -167,12 +167,21 @@ function preftip(obj,evt){
     tooltip.bind( 'click', remove_tooltip );
     tooltip.bind( 'mousedown', remove_tooltip );*/
 }
+
+
+function basetip(obj,evt){
+    var cno = obj.correspondingElement.attributes[1].nodeValue.substr(1)*1;
+    var pn = pref[cno-1];
+    $("#label").html( "他の地域と比較してみよう("+pn+")");
+}
+
 		
 
 function mapit(){
     
     console.log("Mapit")
 
+    var mfc1=function(evt){basetip(this,evt)};
     var mfc2=function(evt){preftip(this,evt)};
     var mfc3=function(evt){};
 
@@ -190,7 +199,7 @@ function mapit(){
 	for(i = 0; i < 47; i++){
 	    var sel =baseSVGPath.childNodes[i*2+1];
 	    sel.addEventListener("mousedown",mfc2);
-	    sel.addEventListener("mousemove",mfc2);
+	    sel.addEventListener("mousemove",mfc1);
 	}
 	NCMB.AnonymousUtils.logIn({
             success: function(user){
@@ -234,7 +243,7 @@ function mapit(){
 
 //    var col = [hls(0.4,0.9,0.6),hls(0.6,0.9,0.6),hls(0.8,0.9,0.6),hls(0.9,0.9,0.6),hls(1.0,0.9,0.6)];
     var col = ["#00FFCC", "#CCFF33", "#FF9900", "#FF6633", "#FF0033"];
-    console.log("Working");
+//    console.log("Working");
 
 
 }
