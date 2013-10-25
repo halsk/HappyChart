@@ -5,6 +5,7 @@ class WelcomeController < ApplicationController
   def home
     formid = Form.first
     @categories = Category.includes(:questions).where("form_id = " + formid.id.to_s).order(:order_num).references(:questions)
+    @job_types = JobType.find(:all, :order=>:order_num)
   end
   def makechart
     formid = params[:formid]

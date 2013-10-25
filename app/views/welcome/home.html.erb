@@ -1,4 +1,5 @@
 <% content_for :head do%>
+<%= javascript_include_tag 'zipcloud.js' %>
 <style>
 .icon {
   width: 32px;
@@ -21,6 +22,13 @@
     font-size: 16pt;
     display: inline-block;
     _display: inline;
+}
+.loading {
+    background-color:#fdd;
+}
+.error-left {
+    display: inline-block;
+    float:left;
 }
 </style>
 <script>
@@ -176,24 +184,10 @@
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup" data-theme="a"/>
                 <legend><%=image_tag("icon11.png", :class=>"icon")%>職業</legend>
-              <input type="radio" name="job_choice" id="job_choice-1" value="1" data-theme="b" />
-              <label for="job_choice-1">会社員</label>
-              <input type="radio" name="job_choice" id="job_choice-2" value="2" data-theme="b"/>
-              <label for="job_choice-2">公務員・団体等職員</label>
-              <input type="radio" name="job_choice" id="job_choice-3" value="3" data-theme="b"/>
-              <label for="job_choice-3">自営業</label>
-              <input type="radio" name="job_choice" id="job_choice-4" value="3" data-theme="b"/>
-              <label for="job_choice-4">専門職（弁護士、医師、会計士等）</label>
-              <input type="radio" name="job_choice" id="job_choice-5" value="off" data-theme="b"/>
-              <label for="job_choice-5">パート・アルバイト</label>
-              <input type="radio" name="job_choice" id="job_choice-6" value="off" data-theme="b"/>
-              <label for="job_choice-6">専業主婦・主夫</label>
-              <input type="radio" name="job_choice" id="job_choice-7" value="off" data-theme="b"/>
-              <label for="job_choice-7">学生</label>
-              <input type="radio" name="job_choice" id="job_choice-8" value="off" data-theme="b"/>
-              <label for="job_choice-8">無職</label>
-              <input type="radio" name="job_choice" id="job_choice-9" value="off" data-theme="b"/>
-              <label for="job_choice-9">その他</label>
+                <% @job_types.each do |job_type| %>
+                  <input type="radio" name="job_choice" id="job_choice-<%=job_type.id%>" value="<%=job_type.id%>" data-theme="b" />
+                  <label for="job_choice-<%=job_type.id%>"><%=job_type.title%></label>
+                <% end %>
 
               </fieldset>
           </div>
@@ -201,6 +195,7 @@
           <div data-role="fieldcontain">
             <label for="location"><%=image_tag("icon12.png", :class=>"icon")%>郵便番号(居住地）</label>
             <input type="text" name="location" id="location" value="" placeholder="999-9999" />
+            <label for="ziperror" class="error-left ui-input-text">　</label><div id="ziperror">　</div>
                                      </div>
           <div data-role="fieldcontain">
             <label for="birthyear"><%=image_tag("icon13.png", :class=>"icon")%>生年(西暦):</label>
@@ -229,6 +224,10 @@
    for(i = 0 ; i < 9; i++){
        fs[i].attributes.removeNamedItem("data-type");
    }}
-
+   $('#location').change(function(){
+     if ($(this).val().match(/^[0-9-]+$/)){
+       areaFromZip($(this).val(), $(this), $('#ziperror'));
+     }
+   });
 </script>
 
