@@ -51,8 +51,8 @@
           $("#fbname").html("<h2>"+$.cookie("name")+" さん: ようこそ Happy Chartへ</h2>");
                       $("#birthyear")[0].value = $.cookie("birthday").substr(6,4);
                       $("#location")[0].value = $.cookie("location");
-                      $("#fbid").value = $.cookie("fbid");
-                      $("#fbname").value = $.cookie("fbname");
+                      $("#fbid").val($.cookie("fbid"));
+                      $("#fbname").val($.cookie("name"));
 //                     console.log($("#birthyear")[0].placeholder);
 //                     console.log($("#birthyear")[0].value);
                     }
