@@ -203,7 +203,7 @@ function mapit(){
   }
   NCMB.AnonymousUtils.logIn({
             success: function(user){
-    var PrefData = NCMB.Object.extend("PrefData");
+    var PrefData = NCMB.Object.extend("RailsPrefData");
     var query= new NCMB.Query(PrefData);
     //      console.log("find "+query);
 

@@ -262,7 +262,7 @@ var doit = function() {
   NCMB.AnonymousUtils.logIn({
     success: function(user) {
       console.log("success login");
-      var UserData = NCMB.Object.extend("UserData");
+      var UserData = NCMB.Object.extend("RailsUserData");
       var ud = new UserData();
       ud.set("enq", cval);
       ud.set("fam", fam);
@@ -304,7 +304,7 @@ var doit = function() {
       ud.save(null, {
         success: function(user) {
           console.log("success save");
-          var PrefData = NCMB.Object.extend("PrefData");
+          var PrefData = NCMB.Object.extend("RailsPrefData");
           var query = new NCMB.Query(PrefData);
           query.equalTo("pref", prefno);
           query.find({

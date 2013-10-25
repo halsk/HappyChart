@@ -94,7 +94,7 @@ function queryPref(){
 	var ar = enqParse(cval);
     drawChart('#container0', 'わたし', ar , '#66cc00');
 
-	var PrefData = NCMB.Object.extend("PrefData");
+	var PrefData = NCMB.Object.extend("RailsPrefData");
 	var query = new NCMB.Query(PrefData);
 	// find pref info
     query.equalTo("pref", 1*selpref);

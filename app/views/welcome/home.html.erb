@@ -31,7 +31,7 @@
     NCMB.AnonymousUtils.logIn({
         success: function(user){
      console.log("success login");
-     var UserData = NCMB.Object.extend("UserData");
+     var UserData = NCMB.Object.extend("RailsUserData");
                   var query= new NCMB.Query(UserData);
         query.count({
          success: function(count){
