@@ -8,6 +8,7 @@
   width: 320px;
   height: 300px;
   margin-bottom: 50px;
+  display: block;
 }
 .overlay {
   position: absolute;
@@ -62,10 +63,10 @@
     </div>
 <script>
 //    console.log("set load!");
-    var label = [];
+    var labels = [];
     var values = [];
     <% @answer.titleandvalue.each do |titleval|%>
-    label.push('<%=titleval[:title]%>');
+    labels.push('<%=titleval[:title]%>');
     values.push(<%=titleval[:value]%>);
     <% end %>
     var shappy = <%=@answer.score%>;
