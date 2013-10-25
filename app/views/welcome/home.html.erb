@@ -120,7 +120,9 @@
             <% @categories.each do |category| %>
             <div data-role="fieldcontain">
             <div class="cap">
+              <!--
               <%= image_tag(category.icon_name, :class => "icon") %> （<%=@count%>問目/<%=@max%>問中）<div class="t"><%= category.title %></div><br/>
+              -->
             </div>
               <% category.questions.each do |question| %>
                 ・<%=question.title %>
