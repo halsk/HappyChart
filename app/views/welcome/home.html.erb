@@ -30,6 +30,9 @@
     display: inline-block;
     float:left;
 }
+#ziperror {
+    color: #e00;
+}
 </style>
 <script>
 
@@ -40,21 +43,7 @@
         success: function(user){
      console.log("success login");
      var UserData = NCMB.Object.extend("RailsUserData");
-                  var query= new NCMB.Query(UserData);
-        query.count({
-         success: function(count){
-         console.log("Now:Data Count = "+count);
-                    totalNum = count;
-    if(totalNum >0){
-         $("#totalCount").html("<h3>これは"+(1*totalNum+1)+"枚目のハッピーチャートです</h3>");
-    }
-
-        }, error:function(error){ console.log("error"+error);}});
-        },
-         error: function(error){}});
-
-//                   console.log("cookie:"+JSON.stringify($.cookie()));
-       $(window).load(function(){// 読みこみ終了時実行
+     $(window).load(function(){// 読みこみ終了時実行
                     if($.cookie("fbid")!= undefined){
           $("#fbname").html("<h2>"+$.cookie("name")+" さん: ようこそ Happy Chartへ</h2>");
                       $("#birthyear")[0].value = $.cookie("birthday").substr(6,4);
@@ -64,31 +53,6 @@
 //                     console.log($("#birthyear")[0].placeholder);
 //                     console.log($("#birthyear")[0].value);
                     }
-                    var ev = $.cookie("enq");
-                    if(ev != undefined) { // restart
-//                       console.log("Set Values:["+ev+"]");
-                       var attrs = new Array( "work_choice",  "income_choice", "edu_choice",
-                                    "commu_choice" , "env_choice" ,  "nature_choice",
-                                    "freetime_choice", "safety_choice");
-
-                       for(i=0; i< attrs.length; i++){
-                       $('input[name=\''+attrs[i]+'\']').attr('checked',null).checkboxradio('refresh'); // clean all
-//           setChoiceValue(attrs[i],ev.substr(i,1));
-//         console.log($('#'+attrs[i]+'-'+ev.substr(i,1)));
-                           $('#'+attrs[i]+'-'+ev.substr(i,1)).attr('checked',true).checkboxradio('refresh'); // set
-                       }
-
-                       var sex = $.cookie("sex");
-                       $('input[name=\'sex\']').attr('checked',null).checkboxradio('refresh'); // clean all
-                       $('#sex-'+sex).attr('checked',true).checkboxradio('refresh'); // set
-                 var fam = $.cookie("fam");
-                       $('input[name=\'fam_choice\']').attr('checked',null).checkboxradio('refresh'); // clean all
-                       $('#fam_choice-'+fam).attr('checked',true).checkboxradio('refresh'); // set
-                       var job = $.cookie("job");
-                       $('input[name=\'job_choice\']').attr('checked',null).checkboxradio('refresh'); // clean all
-                       $('#job_choice-'+job).attr('checked',true).checkboxradio('refresh'); // set
-                    }
-
 
                   }
 
@@ -113,8 +77,9 @@
       <div data-role="content" data-theme="c">
 
 <div id="fbname"><h2>ようこそ Happy Chartへ</h2></div>
-<div id="totalCount"></div>
-
+<div id="totalCount">
+<h3>これは<%=@count + 1%>枚目のハッピーチャートです</h3>
+</div>
 <p>
           Happy Chart は、あなたの今のハッピー度を素敵な図に変換するだけでなく、
 同じ世代や地域間などで、幸せ度を、簡単にで比較できるWebサービスです！
@@ -125,6 +90,7 @@
         <h2>アンケート</h2>
 
         <form action="makechart" method="get" data-ajax="false">
+          <input type="hidden" name="hashid" value="" id="hashid"/>
           <input type="hidden" name="fbid" value="" id="fbid"/>
           <input type="hidden" name="fbname" value="" id="fbname"/>
           <input type="hidden" name="formid" value="<%=@categories.first.form_id%>"/>
@@ -229,5 +195,8 @@
        areaFromZip($(this).val(), $(this), $('#ziperror'));
      }
    });
+   if ($.cookie('cookie_id')){
+     $('#hashid').val($.cookie('cookie_id'));
+   }
 </script>
 

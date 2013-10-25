@@ -68,47 +68,18 @@ function calcAverage(categories) {
   return averages;
 }
 
-function calcTotal(averages) {
-  var total = 0;
-  for (i = 0; i < averages.length; i++ ){
-      total +=  averages[i]
-    }
-  return total;
-}
-
-function joinTotal(averages) {
-  var total = "";
-  for (i = 0; i < averages.length; i++ ){
-      total += "" + averages[i]
-    }
-  return total;
-}
-
 var doit = function() {
   // URL checkURL
   var url = window.location.search;
   var attr = urlparse(url.substring(1));
-  var categories = {};
-  jQuery.each(attr, function(key){
-      if (key.substr(0,2) == "q-"){
-        var catid = key.substr(2,1);
-        if (categories[catid] === undefined){
-          categories[catid] = [];
-        }
-        categories[catid].push(parseInt(this))
-      }
-  });
-  var averages = calcAverage(categories);
-  var cval = joinTotal(averages);
   var averages100 = [];
-  for (i = 0; i < averages.length; i++){
-    averages100.push(averages[i] * 100);
+  for (i = 0; i < values.length; i++){
+    averages100.push(values[i] * 100);
   }
-  var shappy = (-8 + calcTotal(averages)) * 100 /32;
 
   // put values into chart
   //    console.log("cval="+cval);
-  $.cookie("enq", cval, {
+  $.cookie("cookie_id", cookie_id, {
     expires: 30
   });
   //    console.log($.cookie("enq"));
@@ -264,99 +235,7 @@ var doit = function() {
       console.log("success login");
       var UserData = NCMB.Object.extend("RailsUserData");
       var ud = new UserData();
-      ud.set("enq", cval);
-      ud.set("fam", fam);
-      ud.set("sex", sex);
-      ud.set("job", job);
-      ud.set("name", $.cookie("name"));
-      ud.set("username", $.cookie("username"));
-      ud.set("fbid", $.cookie("fbid"));
-      ud.set("birthday", $.cookie("birthday"));
-      ud.set("location", $.cookie("location"));
-      ud.set("hometown", $.cookie("hometown"));
 
-      // どの県か判定すべし
-      var pn = decodeURIComponent(alog).substr(0, 2);
-//      console.log("PN=" + pn);
-
-      var prefno = -1;
-      if (0 * pn == 0) { // 郵便番号
-        //         console.log("CheckNum");
-        var post = 1 * pn;
-        for (i = 0; i < postcode.length; i++) {
-          if (post > postcode[i][0] && post < postcode[i][1]) {
-            prefno = postcode[i][2];
-            break;
-          }
-        }
-      } else { // 県
-        //         console.log("CheckPref");
-        for (i = 0; i < 47; i++) {
-          //       console.log(i+" "+pref[i] );
-          if (pref[i].substr(0, 2) == pn) {
-            prefno = i + 1;
-            break;
-          }
-        }
-      }
-      if (prefno > 0) console.log("OK:" + pref[prefno - 1]);
-
-      ud.save(null, {
-        success: function(user) {
-          console.log("success save");
-          var PrefData = NCMB.Object.extend("RailsPrefData");
-          var query = new NCMB.Query(PrefData);
-          query.equalTo("pref", prefno);
-          query.find({
-            success: function(results) {
-              //      console.log("Now:Pref Count = "+results.length);
-              var ar = enqParse(cval);
-              if (results.length == 0) { // はじめてのデータ
-                var pd = new PrefData();
-                pd.set("pref", prefno);
-                pd.set("myct", 1); // initial
-                for (i = 0; i < ar.length; i++) {
-                  pd.set("" + i, ar[i]);
-                }
-                pd.save(null, {
-                  success: function(user) {
-                    console.log("pref success save");
-                  },
-                  error: function(error) {}
-                });
-
-              } else {
-                var pd = results[0];
-                var arp = new Array(cval.length);
-                for (i = 0; i < arp.length; i++) {
-                  arp[i] = pd.get("" + i);
-                }
-                pd.increment("myct", 1);
-                      var count = pd.get("myct")*1.0;
-                console.log("Count is :" + count);
-
-                    ar = aveArray(arp,ar, count);
-                for (i = 0; i < arp.length; i++) {
-                  pd.set("" + i, ar[i]);
-                  console.log("" + ar[i] + "," + arp[i]);
-                }
-                pd.save(null, {
-                  success: function(user) {
-                    console.log("pref success inc save");
-                  },
-                  error: function(error) {}
-                });
-              }
-            },
-            error: function(error) {
-              console.log("error" + error);
-            }
-          });
-        },
-        error: function(user) {
-          console.log("fail save");
-        }
-      });
     },
     error: function(error) {
       console.log("error on NCMB Anon");

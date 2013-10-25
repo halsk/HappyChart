@@ -63,8 +63,12 @@
 <script>
 //    console.log("set load!");
     var label = [];
-    <% @categories.each do |category|%>
-    label.push('<%=category%>');
+    var values = [];
+    <% @answer.titleandvalue.each do |titleval|%>
+    label.push('<%=titleval[:title]%>');
+    values.push(<%=titleval[:value]%>);
     <% end %>
+    var shappy = <%=@answer.score%>;
+    var cookie_id = '<%=@answer.hashid%>';
     window.setTimeout(doit,1);
 </script>

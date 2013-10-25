@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025125725) do
+ActiveRecord::Schema.define(version: 20131025175545) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",               default: "", null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20131025125725) do
     t.datetime "updated_at"
   end
 
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
 
   create_table "answer_details", force: true do |t|
     t.integer  "answer_id"
@@ -48,6 +48,10 @@ ActiveRecord::Schema.define(version: 20131025125725) do
     t.string   "zipcode"
     t.string   "facebook_id"
     t.string   "facebook_name"
+    t.string   "sex"
+    t.string   "family_type"
+    t.string   "address1"
+    t.string   "address2"
   end
 
   create_table "categories", force: true do |t|
@@ -88,11 +92,11 @@ ActiveRecord::Schema.define(version: 20131025125725) do
     t.integer  "item"
     t.string   "table"
     t.integer  "month",      limit: 2
-    t.integer  "year",       limit: 8
+    t.integer  "year",       limit: 5
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
 
 end
