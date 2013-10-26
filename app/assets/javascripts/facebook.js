@@ -6,12 +6,10 @@ window.fbAsyncInit = function () {
 	oauth: true
     });
 }
-//var chartURL= "http://chart.lisra.jp/highcharts-export-web/";
-//var chartURL= "http://export.highcharts.com/";
-//var chartURL= "http://chart.lisra.jp/cgi-bin/makesvg.cgi";
-var chartURL= "http://chart.lisra.jp/cgi-bin/doit.cgi";
 
-function makeChartImage(){
+var chartURL= "http://chart.lisra.jp/cgi-bin/makesvg.cgi";
+
+function makeChartImage(callback){
     var chart = $('#container0').highcharts();
     var chartExportingOptions = chart.options.exporting;
     var svg = chart.getSVG(Highcharts.merge(
@@ -37,64 +35,38 @@ function makeChartImage(){
 	chartURL,
 //options.url, 
 	   {
- 	       filename: options.filename || 'chart',
-	       type: options.type,
-	       width: options.width || 0, // IE8 fails to post undefined correctly, so use 0
-	       scale: options.scale || 1,
-	       async: true,
+// 	       filename: options.filename || 'chart',
+//	       type: options.type,
+//	       width: options.width || 0, // IE8 fails to post undefined correctly, so use 0
+//	       scale: options.scale || 1,
+//	       async: true,
 	       svg: svg
 	   }
-	   , function(resp,status,xhr){
-	       // got 
-	       alert(status+":"+resp);
-//	       console.log("post is "+status+":"+resp.length);
+	   , callback);
 
-	       FB.ui({
-		   method: 'feed',
-		   name: 'Happy Chart',
-		   link: 'http://hc.lisra.jp/mobile/' ,
-		   caption: 'Happy Chart',
-		   picture: chartURL+resp,
-		   description: 'わたしのハッピーチャートをシェアします！<br>みんなで自分の幸せを再確認しよう。',
-	       }, function(response){
-		   if (response && response.post_id) {
-		       //	    alert('Post was published.');
-		   } else {
-		       //	    alert('Post was not published.');
-		   }
-	       });
+}
 
-
-	   });
-	   
-    // chart.exportChart(type:"image/jpeg"});
-
+function shareFB(resp,status,xhr){
+    FB.ui({
+	method: 'feed',
+	name: 'Happy Chart',
+	link: 'http://chart.lisra.jp/cgi-bin/showchart.cgi?'+resp ,
+	caption: 'みんなで幸せをシェアしよう！',
+	picture: 'http://chart.lisra.jp/'+resp,
+	description: 'わたしのハッピーチャートをシェアします！みんなでそれぞれの幸せを再確認しよう。',
+    }, function(response){
+	if (response && response.post_id) {
+	    //	    alert('Post was published.');
+	} else {
+	    //	    alert('Post was not published.');
+	}
+    });
 }
 
 
 function dofacebook(){
 
-// create image
-
-    makeChartImage();
-
-
-/*    FB.ui({
-	method: 'feed',
-	name: 'Happy Chart',
-	link: 'http://hc.lisra.jp/mobile/' ,
-	caption: 'Happy Chart',
-//	image:
-	description: 'わたしのハッピーチャートをシェアします！',
-    }, function(response){
-	if (response && response.post_id) {
-	    alert('Post was published.');
-	} else {
-	    alert('Post was not published.');
-	}
-    });
-
-    */
+    makeChartImage(shareFB);
 
 }
 
