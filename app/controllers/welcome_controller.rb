@@ -74,4 +74,8 @@ class WelcomeController < ApplicationController
    end
 
   end
+  def chart
+    hash = cookies[:cookie_id]
+    @myanswer = Answer.find(:first, :conditions => {:hashid => hash}) if hash
+  end
 end

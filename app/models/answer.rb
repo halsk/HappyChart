@@ -32,6 +32,7 @@ class Answer < ActiveRecord::Base
 
   def score
     categories = Category.find(:all, :conditions => {:form_id => self.form_id}, :order=>:order_num)
+    return if categories.size == 0
     sum = self.titleandvalue.inject(0) do |sum, a|
       sum + a[:value]
     end

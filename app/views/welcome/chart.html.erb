@@ -2,6 +2,16 @@
   <%= javascript_include_tag 'keepchart.js' %>
   <%= javascript_include_tag 'tweet.js' %>
   <%= javascript_include_tag 'oauth.js' %>
+  <script>
+  var labels = [];
+  var values = [];
+  <% @myanswer.titleandvalue.each do |a| %>
+    labels.push('<%=a[:title]%>');
+    values.push(<%=a[:value] * 100%>);
+  <% end%>
+  var shappy = <%=@myanswer.score%>;
+</script>
+
 
     <style type="text/css"><!--
             .chart {
