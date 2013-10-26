@@ -8,11 +8,6 @@ window.fbAsyncInit = function () {
 
 var gohome = function(){
     $.removeCookie("fbid");
-    $.removeCookie("username");
-    $.removeCookie("name");
-    $.removeCookie("birthday");
-    $.removeCookie("location");
-    $.removeCookie("hometown");
     document.location="/welcome/home";
 }
 
@@ -54,81 +49,13 @@ var getdata = function (bb){
 
 
 $(window).load(function () {
+    var labels = ['教育・学力', 'コミュニティ<br>(仲間)', '生活環境', '安心安全な社会',
+       '自然環境', '仕事','所得','自由な時間'];
+    var avalues = [200, 490, 420, 500, 440, 400,300,500];
+    var tvalues = [500, 190, 500, 150, 200, 400,500,200];
+    makeChart('#container0', '<span style="vertical-align: top;" class="town">島根県隠岐郡海士町の幸せ</span>','海士町', labels, avalues, '#66cc00');
 
-    $('#container0').highcharts({
-  chart: { polar: true, type: 'area' },
-  title: {      text: '<span style="vertical-align: top;" class="town">島根県隠岐郡海士町の幸せ</span>', useHTML: true   },
-  pane: {size: '80%'  },
-  xAxis: {
-      categories: ['教育・学力', 'コミュニティ<br>(仲間)', '生活環境', '安心安全な社会',
-       '自然環境', '仕事','所得','自由な時間'],
-      tickmarkPlacement: 'on',
-      lineWidth: 0,
-  },
-  yAxis: {
-      gridLineInterpolation: 'polygon',
-      lineWidth: 0,
-      max: 500,
-      min: 0
-  },
-  tooltip: {
-      shared: true,
-      pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
-  },
-  legend: {
-      enabled: false,
-      align: 'right',
-      verticalAlign: 'top',
-      y: 70,
-      layout: 'vertical'
-  },
-  series: [ {
-      name: '海士町',
-      data: [200, 490, 420, 500, 440, 400,300,500],
-      color: '#66cc00',
-      pointPlacement: 'on',
-  }]
-
-    });
-
-    $('#container1').highcharts({
-  chart: { polar: true, type: 'area' },
-  title: {      text: '<span style="vertical-align: top;" class="city">東京都の幸せ</span>', useHTML: true   },
-  pane: {size: '80%'  },
-  xAxis: {
-      categories: ['教育・学力', 'コミュニティ<br>(仲間)', '生活環境', '安心安全な社会',
-       '自然環境', '仕事','所得','自由な時間'],
-      tickmarkPlacement: 'on',
-      lineWidth: 0,
-  },
-  yAxis: {
-      gridLineInterpolation: 'polygon',
-      lineWidth: 0,
-      max: 500,
-      min: 0
-  },
-  tooltip: {
-      shared: true,
-      pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
-  },
-  legend: {
-      enabled: false,
-      align: 'right',
-      verticalAlign: 'top',
-      y: 70,
-      layout: 'vertical'
-  },
-
-  series: [ {
-      name: '東京都',
-      data: [500, 190, 500, 150, 200, 400,500,200],
-      pointPlacement: 'off'
-  }],
-
-
-    });
-
-
+     makeChart('#container1', '<span style="vertical-align: top;" class="city">東京都の幸せ</span>', '東京都', labels, tvalues);
 });
 
 // JavaScript Facebook SDK load

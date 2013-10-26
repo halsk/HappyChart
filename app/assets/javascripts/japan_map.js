@@ -100,7 +100,6 @@ var baseDoc;
     "佐賀県","長崎県","熊本県","大分県","宮崎県" ,
     "鹿児島県", "沖縄県" ];
 
-    var ar = new Array(48);
     var ct = new Array(48);
 
 function maphover(evt,obj){
@@ -179,73 +178,61 @@ function basetip(obj,evt){
 
 function mapit(){
 
-    console.log("Mapit")
+  console.log("Mapit")
 
-    var mfc1=function(evt){basetip(this,evt)};
-    var mfc2=function(evt){preftip(this,evt)};
-    var mfc3=function(evt){};
+  var mfc1=function(evt){basetip(this,evt)};
+  var mfc2=function(evt){preftip(this,evt)};
+  var mfc3=function(evt){};
 
-    // safari do not load embed in "window load"..
-    // so we made delay function
-    window.setTimeout(function(){
-  var esvg = $("#esvg")[0];
-  var oy = esvg.offsetTop;
-  var ox = esvg.offsetLeft;
-  $('#explain').css({left: ox+190, top: oy+250, visibility: "visible"});
+  // safari do not load embed in "window load"..
+  // so we made delay function
+  window.setTimeout(function(){
+    var esvg = $("#esvg")[0];
+    var oy = esvg.offsetTop;
+    var ox = esvg.offsetLeft;
+    $('#explain').css({left: ox+190, top: oy+250, visibility: "visible"});
 //  $('#explain').bind('mousedown', jump_diff());
 
-  $("#esvg")[0].getSVGDocument().documentElement.addEventListener("mousedown",mfc3);
-  baseSVGPath = $("#esvg")[0].getSVGDocument().documentElement.childNodes[3].childNodes[1].childNodes[3];
-  for(i = 0; i < 47; i++){
+    $("#esvg")[0].getSVGDocument().documentElement.addEventListener("mousedown",mfc3);
+    baseSVGPath = $("#esvg")[0].getSVGDocument().documentElement.childNodes[3].childNodes[1].childNodes[3];
+    for(i = 0; i < 47; i++){
       var sel =baseSVGPath.childNodes[i*2+1];
       sel.addEventListener("mousedown",mfc2);
       sel.addEventListener("mousemove",mfc1);
-  }
-  NCMB.AnonymousUtils.logIn({
-            success: function(user){
-    var PrefData = NCMB.Object.extend("RailsPrefData");
-    var query= new NCMB.Query(PrefData);
-    //      console.log("find "+query);
+    }
 
-    query.each(function(result){
-        //    console.log("get"+JSON.stringify(result));
-        var pd = result;
-        var pid = pd.get("pref");
-        if(pid < 0) { // no pref info
-      console.log("Skip -1");
-        }else{
-      ar[pid] = makeArray(pd);
-      ct[pid] = pd.get("myct");
-      var cn = parseInt(ct[pid]/5);
-      if(cn >= col.length) cn = col.length-1;
-//      console.log("add Style: "+cn +","+pid+":"+col[cn]);
-      var path = baseSVGPath.childNodes[(pid-1)*2+1];
-      path.style.setProperty("fill",col[cn] );
-        }});
-// workaround for redrawing SVG
-    var svgdoc = $("#esvg")[0].getSVGDocument()
-    var child = svgdoc.childNodes[0];
-    svgdoc.removeChild(child);
-//    svgdoc.appendChild(child);
-    window.setTimeout(function(){
-        svgdoc.appendChild(child);
-    },500);
-
-      },
-      error: function(error){
-    console.log("login error:"+error);
+    var prefdata = [
+      {
+        pref : 23,
+        myct : 20,
       }
-  });
-
-
-
-    },600);
-
-//    var col = [hls(0.4,0.9,0.6),hls(0.6,0.9,0.6),hls(0.8,0.9,0.6),hls(0.9,0.9,0.6),hls(1.0,0.9,0.6)];
+    ];
     var col = ["#00FFCC", "#CCFF33", "#FF9900", "#FF6633", "#FF0033"];
-//    console.log("Working");
 
+    jQuery.each(prefdata, function(result){
+      //    console.log("get"+JSON.stringify(result));
+      var pd = this;
+      var pid = pd["pref"];
+      if(pid < 0) { // no pref info
+        console.log("Skip -1");
+      }else{
+        ct[pid] = pd["myct"];
+        var cn = parseInt(ct[pid]/5);
+        if(cn >= col.length) cn = col.length-1;
+//        console.log("add Style: "+cn +","+pid+":"+col[cn]);
+        var path = baseSVGPath.childNodes[(pid-1)*2+1];
+        path.style.setProperty("fill",col[cn] );
+     }});
+  // workaround for redrawing SVG
+     var svgdoc = $("#esvg")[0].getSVGDocument()
+     var child = svgdoc.childNodes[0];
+     svgdoc.removeChild(child);
 
+     window.setTimeout(function(){
+       svgdoc.appendChild(child);
+     },500);
+
+   }, 600);
 }
 
 $(window).load(mapit);

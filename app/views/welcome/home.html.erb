@@ -92,6 +92,7 @@
         <form action="makechart" method="get" data-ajax="false">
           <input type="hidden" name="hashid" value="" id="hashid"/>
           <input type="hidden" name="fbid" value="" id="fbid"/>
+          <input type="hidden" name="zipcode" value="" id="zipcode"/>
           <input type="hidden" name="fbname" value="" id="fbname"/>
           <input type="hidden" name="formid" value="<%=@categories.first.form_id%>"/>
             <% @count = 1; @max = @categories.count %>
@@ -192,6 +193,7 @@
    }}
    $('#location').change(function(){
      if ($(this).val().match(/^[0-9-]+$/)){
+       $("#zipcode").val($(this).val());
        areaFromZip($(this).val(), $(this), $('#ziperror'));
      }
    });

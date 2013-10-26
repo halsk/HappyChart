@@ -18,19 +18,23 @@ class WelcomeController < ApplicationController
     elsif params[:hashid]
       @answer = Answer.find(:first, :conditions => {:hashid => params[:hashid], :form_id => formid})
     end
+    zipcode = params[:zipcode]
+    zipcode.delete!("-") if (zipcode)
     if @answer
+      @answer.zipcode = zipcode
       @answer.living_place = params[:location]
       @answer.sex = params[:sex]
-      @answer.family_type = params[:fam_chice]
+      @answer.family_type = params[:fam_choice]
       @answer.birth_year = params[:birthyear]
       @answer.job_type_id = params[:job_choice]
       @answer.save
     else
       # create new
       @answer = Answer.create(
+        :zipcode => zipcode,
         :form_id => params[:formid],
         :living_place => params[:location],
-        :family_type => params[:fam_chice],
+        :family_type => params[:fam_choice],
         :sex => params[:sex],
         :birth_year => params[:birthyear],
         :job_type_id => params[:job_choice],
@@ -46,5 +50,8 @@ class WelcomeController < ApplicationController
         @answer.answer_details.build(:question_id => qid, :answer_rate => value.to_i).save
       end
     end
+  end
+  def japan
+
   end
 end
