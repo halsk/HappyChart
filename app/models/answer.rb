@@ -14,7 +14,7 @@ PREFS = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
 class Answer < ActiveRecord::Base
   has_many :answer_details
   before_create :assign_hashid
-  before_update :extract_location
+  before_save :extract_location
 
   def titleandvalue
     categories = Category.find(:all, :conditions => {:form_id => self.form_id}, :order=>:order_num)
@@ -44,12 +44,16 @@ class Answer < ActiveRecord::Base
     self.hashid = Digest::SHA1.hexdigest([Time.now, rand].join)
   end
   def extract_location
+    id = 1
     PREFS.each do |p|
       res = self.living_place.scan(/^#{p}(.*)/)
       if (res.count > 0)
         self.address1 = p
         self.address2 = res[0][0]
+        self.pref_id = id
+        break
       end
+      id += 1
     end
   end
 

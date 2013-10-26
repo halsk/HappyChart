@@ -8,7 +8,7 @@ function pp(obj) {
 }
 
 function jump_diff(){
-    document.location="diff";
+  document.location="diff?pref=" + $.cookie("selpref") + "&hashid=" + $.cookie("cookie_id")
 }
 
 function renderMap(data){
@@ -201,22 +201,15 @@ function mapit(){
       sel.addEventListener("mousemove",mfc1);
     }
 
-    var prefdata = [
-      {
-        pref : 23,
-        myct : 20,
-      }
-    ];
     var col = ["#00FFCC", "#CCFF33", "#FF9900", "#FF6633", "#FF0033"];
 
-    jQuery.each(prefdata, function(result){
+    jQuery.each(prefdata, function(prefid){
       //    console.log("get"+JSON.stringify(result));
-      var pd = this;
-      var pid = pd["pref"];
-      if(pid < 0) { // no pref info
+      var pid = prefid
+      if(pid == "" || pid < 0) { // no pref info
         console.log("Skip -1");
       }else{
-        ct[pid] = pd["myct"];
+        ct[pid] = this;
         var cn = parseInt(ct[pid]/5);
         if(cn >= col.length) cn = col.length-1;
 //        console.log("add Style: "+cn +","+pid+":"+col[cn]);

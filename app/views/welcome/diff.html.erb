@@ -1,5 +1,18 @@
 <% content_for :head do%>
   <%= javascript_include_tag 'diff.js' %>
+  <script>
+  var labels = [];
+  var values1 = [];
+  var values2 = [];
+  <% @myanswer.each do |a| %>
+    labels.push('<%=a[:title]%>');
+    values1.push(<%=a[:value] * 100%>);
+  <% end%>
+  <% @panswer.each do |a| %>
+    values2.push(<%=a[:value] * 100%>);
+  <%end%>
+
+  </script>
 <% end %>
 
     <div data-role="page">

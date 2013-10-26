@@ -13,10 +13,10 @@ class WelcomeController < ApplicationController
     formid = params[:formid]
     # get answer object if exists
     @answer = nil;
-    if params[:fbid]
+    if !params[:fbid].nil? && !params[:fbid].blank?
       @answer = Answer.find(:first, :conditions => {:facebook_id => params[:fbid], :form_id => formid})
-    elsif params[:hashid]
-      @answer = Answer.find(:first, :conditions => {:hashid => params[:hashid], :form_id => formid})
+    elsif !params[:hashid].nil? && !params[:hashid].blank?
+      @answer = Answer.find(:first, :conditions => {:hashid => params[:hashid]})
     end
     zipcode = params[:zipcode]
     zipcode.delete!("-") if (zipcode)
@@ -52,6 +52,26 @@ class WelcomeController < ApplicationController
     end
   end
   def japan
+    @regions = Answer.group('pref_id').count.to_json
+  end
+  def diff
+    @myanswer = Answer.find(:first, :conditions => {:hashid => params[:hashid]}).titleandvalue
+    formid = Form.first.id
+    other_answers = Answer.connection.select_all(sprintf("SELECT detail.question_id,avg(detail.answer_rate) as avg from answers as a left join answer_details as detail on a.id = detail.answer_id group by a.form_id, a.pref_id, detail.question_id having pref_id= %d and form_id = %d;", params[:pref], formid))
+    categories = Category.find(:all, :conditions => {:form_id => formid}, :order=>:order_num)
+    @panswer = categories.map do |category|
+      value = category.questions.inject(0){|sum, q|
+        tgt = other_answers.select{|item| item["question_id"] == q.id}
+        sum += tgt.inject(0.0){|s, a|
+          s += a["avg"]
+        } / tgt.size
+      } / category.questions.size
+      {
+        :id => category.id,
+        :title => category.title,
+        :value => value
+      }
+   end
 
   end
 end
