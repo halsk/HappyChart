@@ -1,0 +1,53 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "widgets"%>
+<% end %>
+    <div id="fb-root"></div>
+
+    <div data-role="page" data-theme="c">
+      <div data-role="header" data-position="inline" data-theme="f">
+	<h1>Happy Chart</h1>
+      </div>
+      <br>
+      <center>2013年10月12日<br>名古屋で開催されたシビックハッカソンで<br>
+	本サービスは産声を挙げました。<br>
+	<br>
+	きっかけは、スタッフの素朴な不満でした。<br>
+	でも、実は地域にとって大切な課題を含んでました。<br>
+	<br>
+	そして、それがはっきり判ったのは<br>
+	Studio-L 出野様からのヒントでした。<br>
+	<br>
+	日本には、いろんな場所があること。<br>
+	地域に応じた幸せがあること。<br>
+	<br>
+	それを、なんとか見える形にできないか、というところから<br>
+	本サービスの開発は始まりました。<br>
+
+	<h6>
+	  Special Thanks to<br>
+	  Studio-L
+	</h6>
+
+	<br>
+	<a class="twitter-timeline" href="https://twitter.com/search?q=%23HappyChart" 
+	   data-widget-id="393460768185675776">#HappyChart に関するツイート</a>
+      </center>
+      <center>
+	<a href="https://twitter.com/share" class="twitter-share-button" 
+	   data-url="http://hc.lisra.jp/mobile" data-text="みんなで幸せシェアしよう！" 
+	   data-lang="ja" data-hashtags="HappyChart">ツイート</a>
+
+	<div class="fb-like" data-href="http://hc.lisra.jp/mobile" 
+	     data-width="The pixel width of the plugin" data-height="The pixel height of the plugin" 
+	     data-colorscheme="light" data-layout="button_count" data-action="like" 
+	     data-show-faces="true" data-send="false"></div>
+      </center>
+
+      <button data-role="button" data-icon="check" data-iconpos="right" data-ajax="false" 
+	      onclick="document.location='/'" data-theme="b">Top
+      </button>
+      <button data-role="button" data-icon="arrow-l" data-iconpos="left" data-ajax="false" 
+	      onclick="history.back()" data-theme="e">戻る
+      </button>
+      
+    </div>
