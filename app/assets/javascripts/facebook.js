@@ -6,8 +6,8 @@ window.fbAsyncInit = function () {
 	oauth: true
     });
 }
-
 var chartURL= "http://chart.lisra.jp/cgi-bin/makesvg.cgi";
+var mapURL= "http://chart.lisra.jp/cgi-bin/makemap.cgi";
 
 function makeChartImage(callback){
     var chart = $('#container0').highcharts();
@@ -45,8 +45,13 @@ function makeChartImage(callback){
 	   , callback);
 
 }
-
+var respG,xhrG;
 function shareFB(resp,status,xhr){
+    if (typeof resp != "string"){
+	// something wrong...
+	alert("大変申しわけありません。画像生成がうまく行きません。<br>おかしくなった状況を happychart@lisra.jp までご報告ください");
+	return;
+    }
     FB.ui({
 	method: 'feed',
 	name: 'Happy Chart',
@@ -63,14 +68,50 @@ function shareFB(resp,status,xhr){
     });
 }
 
-
 function dofacebook(){
-
     makeChartImage(shareFB);
-
 }
 
 
+function shareMap(resp,status,xhr){
+    if (typeof resp != "string"){
+	// something wrong...
+	alert("大変申しわけありません。画像生成がうまく行きません。<br>おかしくなった状況を happychart@lisra.jp までご報告ください");
+	return;
+    }
+    FB.ui({
+	method: 'feed',
+	name: 'Happy Chart',
+	link: 'http://chart.lisra.jp/cgi-bin/showmap.cgi?'+resp ,
+	caption: 'みんなで幸せをシェアしよう！',
+	picture: 'http://chart.lisra.jp/'+resp,
+	description: '現在の登録状況です！あなたの地域はありますか？みんなでそれぞれの幸せを再確認しよう。',
+    }, function(response){
+	if (response && response.post_id) {
+	    //	    alert('Post was published.');
+	} else {
+	    //	    alert('Post was not published.');
+	}
+    });
+}
+
+function makeJapanChartImage(callback){
+    var xser = new XMLSerializer();
+    var svgNode = $("#esvg")[0].getSVGDocument();
+    var svg = xser.serializeToString(svgNode);
+
+    $.post( 
+	mapURL,
+	{
+	    svg: svg
+	}
+	, callback);
+
+}
+
+function fbPostJapan(){
+    makeJapanChartImage(shareMap);
+}
 
 // JavaScript Facebook SDK load
 $(function () {
@@ -81,3 +122,4 @@ $(function () {
 	document.getElementById('fb-root').appendChild(e);
     } ());
 });
+
