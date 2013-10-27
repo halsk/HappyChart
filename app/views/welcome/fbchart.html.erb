@@ -1,6 +1,17 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'keepchart.js' %>
   <%= javascript_include_tag 'facebook.js' %>
+  <script>
+  var labels = [];
+  var values = [];
+  <% if @myanswer %>
+  <% @myanswer.titleandvalue.each do |a| %>
+    labels.push('<%=a[:title]%>');
+    values.push(<%=a[:value] * 100%>);
+  <% end%>
+  var shappy = <%=@myanswer.score%>;
+  <% end %>
+  </script>
 
     <style type="text/css"><!--
             .chart {

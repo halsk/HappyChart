@@ -1,5 +1,6 @@
 <% content_for :head do%>
 <%= javascript_include_tag 'zipcloud.js' %>
+<%= javascript_include_tag 'home.js' %>
 <style>
 .icon {
   width: 32px;
@@ -38,26 +39,6 @@
 
     var totalNum = -1;
     NCMB.initialize("73b2578802b76e8f77c859075be4ecf681dfb4f9830f1fbad3ce3e06731b32cc", "f58c65a4d666960b25399a1f953257d3bd09fc164d15bee3055ce04a93387d83");
-
-    NCMB.AnonymousUtils.logIn({
-        success: function(user){
-     console.log("success login");
-     var UserData = NCMB.Object.extend("RailsUserData");
-     $(window).load(function(){// 読みこみ終了時実行
-                    if($.cookie("fbid")!= undefined){
-          $("#fbname").html("<h2>"+$.cookie("name")+" さん: ようこそ Happy Chartへ</h2>");
-                      $("#birthyear")[0].value = $.cookie("birthday").substr(6,4);
-                      $("#location")[0].value = $.cookie("location");
-                      $("#fbid").val($.cookie("fbid"));
-                      $("#fbname").val($.cookie("name"));
-//                     console.log($("#birthyear")[0].placeholder);
-//                     console.log($("#birthyear")[0].value);
-                    }
-
-                  }
-
-
-        ); //load function
 
 </script>
 <% end %>
@@ -110,7 +91,7 @@
                 <label for="<%=question.field_name%>-5">満足</label>
                 <input type="radio" name="<%=question.field_name%>" id="<%=question.field_name%>-4" value="4" />
                 <label for="<%=question.field_name%>-4">やや満足</label>
-                <input type="radio" name="<%=question.field_name%>" id="<%=question.field_name%>-3" value="3" checked="checked" />
+                <input type="radio" name="<%=question.field_name%>" id="<%=question.field_name%>-3" value="3" checked="checked"/>
                 <label for="<%=question.field_name%>-3">普通</label>
                 <input type="radio" name="<%=question.field_name%>" id="<%=question.field_name%>-2" value="2" />
                 <label for="<%=question.field_name%>-2">やや不満</label>
@@ -185,20 +166,16 @@
 
     </div>
 <script>
-   console.log(window.innerWidth);
-   if(window.innerWidth < 640){
-   var fs = $("fieldset");
-   for(i = 0 ; i < 9; i++){
-       fs[i].attributes.removeNamedItem("data-type");
-   }}
-   $('#location').change(function(){
-     if ($(this).val().match(/^[0-9-]+$/)){
-       $("#zipcode").val($(this).val());
-       areaFromZip($(this).val(), $(this), $('#ziperror'));
-     }
-   });
-   if ($.cookie('cookie_id')){
-     $('#hashid').val($.cookie('cookie_id'));
-   }
+  <% if @answer %>
+    $(document).ready(function(){
+        <% @answer.answer_details.each do |d|%>
+          console.log($('#<%=d.question.field_name%>-<%=d.answer_rate%>'));
+          // somehow this didn't work
+          $("input:checkbox[id='<%=d.question.field_name%>-3']").prop("checked",false);
+          $("input:checkbox[id='<%=d.question.field_name%>-<%=d.answer_rate%>']").prop("checked",true);
+        <% end %>
+        });
+
+  <% end %>
 </script>
 

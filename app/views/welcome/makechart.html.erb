@@ -1,6 +1,7 @@
 <% content_for :head do %>
 
 <%= javascript_include_tag "dochart.js" %>
+<%= javascript_include_tag "facebook.js" %>
 
 <style type="text/css"><!--
 .chart {
@@ -55,7 +56,7 @@
 </center>
 
         <div data-role="content" data-theme="b" style="clear:both">
-          <a href="fbchart" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" >Facebookに投稿する</a>
+          <button data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" onclick="dofacebook()" >Facebookに投稿する</button>
           <a href="japan" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" data-theme="f" >他の地域と比較する</a>
           <a href="home" data-role="button" data-icon="arrow-l" data-iconpos="left" data-ajax="false" data-theme="d"  >やりなおす</a>
         </div>

@@ -51,8 +51,14 @@ function makeChart(target_id, title, series_name, labels, values, ccolor){
     }],
   credits: {
       enabled: false
+  },
+  exporting:{
+    buttons:{
+      contextButton:{
+        enabled: false
+      }
+    }
   }
-
 
   });
 }

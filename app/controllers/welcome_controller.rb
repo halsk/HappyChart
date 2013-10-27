@@ -3,11 +3,17 @@ class WelcomeController < ApplicationController
   def index
   end
   def home
-    formid = Form.first
-    @categories = Category.includes(:questions).where("form_id = " + formid.id.to_s).order(:order_num).references(:questions)
+   formid = Form.first.id
+   if !cookies[:cookie_id].nil? && !cookies[:cookie_id].blank?
+      @answer = Answer.find(:first, :conditions => {:hashid => cookies[:cookie_id], :form_id => formid})
+   elsif !cookies[:fbid].nil? && !cookies[:fbid].blank?
+      @answer = Answer.find(:first, :conditions => {:facebook_id => params[:fbid], :form_id => formid})
+   end
+    @categories = Category.includes(:questions).where("form_id = " + formid.to_s).order(:order_num).references(:questions)
     @job_types = JobType.find(:all, :order=>:order_num)
     @count = Answer.count
   end
+
   def makechart
     # get formid
     formid = params[:formid]
@@ -75,6 +81,10 @@ class WelcomeController < ApplicationController
 
   end
   def chart
+    hash = cookies[:cookie_id]
+    @myanswer = Answer.find(:first, :conditions => {:hashid => hash}) if hash
+  end
+  def fbchart
     hash = cookies[:cookie_id]
     @myanswer = Answer.find(:first, :conditions => {:hashid => hash}) if hash
   end
