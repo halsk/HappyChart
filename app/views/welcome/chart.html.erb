@@ -1,8 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'keepchart.js' %>
-  <%= javascript_include_tag 'tweet.js' %>
-  <%= javascript_include_tag 'facebook.js' %>
-  <%= javascript_include_tag 'oauth.js' %>
+  <%= javascript_include_tag 'keepchart', 'facebook', 'twitter' %>
   <script>
   var labels = [];
   var values = [];
@@ -39,13 +36,15 @@
 
            --></style>
 <% end %>
-
+ <div id="fb-root"></div>
     <div data-role="page" data-theme="b">
       <div data-role="header" data-position="inline" data-theme="f">
-  <h1>Happy Chart</h1>
+        <a href="/" data-icon="home" data-ajax="false">Top</a>
+        <h1 data-theme="c">Happy Chart</h1>
+        <a href="about" data-icon="gear" data-ajax="false">About</a>
   <div data-role="navbar">
     <ul>
-      <li><a href="index" data-icon="home" data-ajax="false">ホーム</a></li>
+      <li><a href="home.html" data-icon="check" data-ajax="false">アンケート</a></li>
       <!--            <li><a href="history.html" data-icon="star" data-ajax="false">私の歴史</a></li> -->
       <li><a href="chart" data-icon="star" class="ui-btn-active">私のハッピー</a></li>
       <li><a href="japan" data-icon="grid" data-ajax="false">みんなのハッピー</a></li>
@@ -60,11 +59,12 @@
     <div id="container0" style="width: 320px; height: 300px; margin: 0 auto; "></div>
     <%= image_tag('chart.png', :class=>"overlay", :alt=>"") %>
   </div>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hc.lisra.jp/mobile" data-text="みんなで幸せシェアしようne！" data-lang="ja" data-hashtags="HappyChart">HappyChartを ツイートする</a>
       </center>
 
       <div data-role="content" data-theme="b" style="clear:both">
   <a href="fbchart" data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" >Facebookに投稿する</a>
-      <button data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" data-theme="e" onclick="tweet()" >Tweetする</button>
+      <!--button data-role="button" data-icon="arrow-r" data-iconpos="right" data-ajax="false" data-theme="e" onclick="tweet()" >Tweetする</button-->
   <a href="home" data-role="button" data-icon="arrow-l" data-iconpos="left" data-ajax="false" data-theme="d"  >やりなおす</a>
       </div>
 
@@ -72,5 +72,6 @@
     <script>
       //    console.log("set load!");
       window.setTimeout(doit,1);
+      window.setTimeout(graphtweet,1);
     </script>
 
