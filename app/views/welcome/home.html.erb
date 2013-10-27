@@ -178,8 +178,18 @@
       }}
       <% @answer.answer_details.each do |d|%>
         // somehow this didn't work
-        $("input:checkbox[id='<%=d.question.field_name%>-3']").prop("checked",false);
-        $("input:checkbox[id='<%=d.question.field_name%>-<%=d.answer_rate%>']").prop("checked",true);
+        $("input[id='<%=d.question.field_name%>-3']").attr("checked",false).checkboxradio('refresh');
+        $("input[id='<%=d.question.field_name%>-<%=d.answer_rate%>']").prop("checked",true).checkboxradio('refresh');
+      <% end %>
+      <% if @answer %>
+        $('input[name=\'sex\']').attr('checked', null).checkboxradio('refresh');
+        $('#sex-<%=@answer.sex%>').attr('checked', true).checkboxradio('refresh');
+        $('input[name=\'fam_choice\']').attr('checked', null).checkboxradio('refresh');
+        $('#fam_choice-<%=@answer.family_type%>').attr('checked', true).checkboxradio('refresh');
+        $('input[name=\'job_choice\']').attr('checked', null).checkboxradio('refresh');
+        $('#job_choice-<%=@answer.job_type_id%>').attr('checked', true).checkboxradio('refresh');
+        $('#location').val('<%=@answer.living_place%>');
+        $('#birthyear').val('<%=@answer.birth_year%>');
       <% end %>
     });
 
