@@ -1,15 +1,18 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'japan_map.js' %>
+  <%= javascript_include_tag 'japan_map', 'facebook' %>
   <script>
     var prefdata = <%=raw(@regions)%>
   </script>
 <% end %>
+<div id="fb-root"></div>
     <div data-role="page">
       <div data-role="header" data-position="inline" data-theme="b">
+  <a href="/mobile" data-icon="home" data-ajax="false">Top</a>
   <h1 data-theme="c">Happy Chart</h1>
+  <a href="about.html" data-icon="gear" data-ajax="false">About</a>
   <div data-role="navbar" data-theme="b">
     <ul>
-      <li><a href="home" data-icon="home"  data-ajax="false">ホーム</a></li>
+      <li><a href="home" data-icon="home"  data-ajax="false">アンケート</a></li>
 <!--      <li><a href="history.html" data-icon="star" data-ajax="false">私の歴史</a></li> -->
       <li><a href="chart" data-icon="star" data-ajax="false">私のハッピー</a></li>
       <li><a href="japan" data-icon="grid" class="ui-btn-active"> みんなのハッピー</a></li>
@@ -23,11 +26,14 @@
       </div>
 
     </div>
-    <div data-role="footer" data-theme="b">
-      <div id="label" style="line-height: 1.5; width: 100%; text-align: center">他の地域と比較してみよう</div>
+    <div data-role="content" data-theme="b">
+      <div id="label" style="line-height: 1.5; width: 100%; text-align: center">他の地域と比較してみ
+よう</div>
+    </div>
+    <div data-role="content" data-theme="b">
+      <button data-role="button" onclick="fbPostJapan()" data-theme="b" > Facebook に日本地図を投稿 </button>
     </div>
     </div>
-
 
 
     <div id="explain" onclick="jump_diff()">

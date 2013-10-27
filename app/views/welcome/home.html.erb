@@ -44,13 +44,15 @@
 <% end %>
     <div data-role="page" data-theme="">
       <div data-role="header" data-position="inline" data-theme="b">
+        <a href="/" data-icon="home" data-ajax="false">Top</a>
          <h1 data-theme="c">Happy Chart</h1>
+        <a href="about" data-icon="gear" data-ajax="false">About</a>
         <div data-role="navbar" data-theme="b">
           <ul>
-            <li><a href="home.html" data-icon="home" class="ui-btn-active">ホーム</a></li>
+            <li><a href="home" data-icon="home" class="ui-btn-active">アンケート</a></li>
 <!--            <li><a href="history.html" data-icon="star" data-ajax="false">私の歴史</a></li> -->
-            <li><a href="chart.html" data-icon="star" data-ajax="false">私のハッピー</a></li>
-            <li><a href="japan.html" data-icon="grid" data-ajax="false">みんなのハッピー</a></li>
+            <li><a href="chart" data-icon="star" data-ajax="false">私のハッピー</a></li>
+            <li><a href="japan" data-icon="grid" data-ajax="false">みんなのハッピー</a></li>
 
           </ul>
         </div>
@@ -166,15 +168,20 @@
 
     </div>
 <script>
+// dynamic size
   <% if @answer %>
     $(document).ready(function(){
-        <% @answer.answer_details.each do |d|%>
-          console.log($('#<%=d.question.field_name%>-<%=d.answer_rate%>'));
-          // somehow this didn't work
-          $("input:checkbox[id='<%=d.question.field_name%>-3']").prop("checked",false);
-          $("input:checkbox[id='<%=d.question.field_name%>-<%=d.answer_rate%>']").prop("checked",true);
-        <% end %>
-        });
+      if(window.innerWidth < 640){
+      var fs = $("fieldset");
+      for(i = 0 ; i < 9; i++){
+        fs[i].attributes.removeNamedItem("data-type");
+      }}
+      <% @answer.answer_details.each do |d|%>
+        // somehow this didn't work
+        $("input:checkbox[id='<%=d.question.field_name%>-3']").prop("checked",false);
+        $("input:checkbox[id='<%=d.question.field_name%>-<%=d.answer_rate%>']").prop("checked",true);
+      <% end %>
+    });
 
   <% end %>
 </script>
