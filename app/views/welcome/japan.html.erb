@@ -1,4 +1,5 @@
 <% content_for :head do %>
+  <%= stylesheet_link_tag 'tooltip' %>
   <%= javascript_include_tag 'japan_map', 'facebook' %>
   <script>
     var prefdata = <%=raw(@regions)%>
@@ -29,7 +30,6 @@
     <div data-role="content" data-theme="b">
       <div id="label" style="line-height: 1.5; width: 100%; text-align: center">他の地域と比較してみ
 よう</div>
-    </div>
     <div data-role="content" data-theme="b">
       <button data-role="button" onclick="fbPostJapan()" data-theme="b" > Facebook に日本地図を投稿 </button>
     </div>

@@ -122,21 +122,56 @@ function maphover(evt,obj){
 }
 
 var  tooltip = $( '<div id="tooltip"></div>' );
+
+/***
+  Event to Pref No.
+ */
+function getEvtToPref(obj,evt){
+    var cno;
+    var ua = window.navigator.userAgent.toLowerCase();
+//    console.log("UA:"+ua);
+
+    if (ua.indexOf("iphone") != -1){ // iphone
+  cno = evt.target.correspondingElement.attributes[1].nodeValue.substr(1)*1;
+    }else if (ua.indexOf("msie") != -1 ){// ie
+  cno = evt.target.correspondingElement.attributes[0].nodeValue.substr(1)*1;
+    }else if(ua.indexOf("chrome") != -1 || ua.indexOf("applewebkit") !=-1 ){// chrome or safari
+  cno = evt.target.correspondingElement.attributes[1].nodeValue.substr(1)*1;
+    }else{ // mozilla?
+  cno = evt.originalTarget.attributes[1].nodeValue.substr(1)*1;
+    }
+
+    return cno;
+}
+
+var Gobj,Gevt;
+
 function preftip(obj,evt){
-    var cno = obj.correspondingElement.attributes[1].nodeValue.substr(1)*1;
-
-
-//    console.log("x,y="+ox+","+oy+":sc"+x+","+y+":l:"+evt.clientX+","+evt.clientY);
+    console.log("preftip"+obj);
+    Gobj = obj;
+    Gevt = evt;
+    if(obj == null){
+  console.log("tip clear");
+  $(tooltip).remove();
+  return;
+    }
+    var cno= getEvtToPref(obj,evt);
 
     var n = ct[cno];if(n==undefined ) n = 0;
-    tooltip.css( 'opacity', 1 )
-  .html( pref[cno-1]+":"+ n+"人のハッピーさん")
-  .appendTo( 'body' );
+    if(n >0){
+  tooltip.css( 'opacity', 1 )
+      .html( pref[cno-1]+":"+ n+"人と<br><button onclick='jump_diff()'>比較してみよう</button>")
+      .appendTo( 'body' );
+    }else{
+  tooltip.css( 'opacity', 1 )
+      .html( pref[cno-1]+"はまだ<br>登録がありません")
+      .appendTo( 'body' );
+    }
     selPref = cno-1;
     $.cookie("selpref",cno); // save to cookie.
 
-    var init_tooltip = function()
-    {
+    var init_tooltip = function(){
+
   var esvg = $("#esvg")[0];
   var oy = esvg.offsetTop;
   var ox = esvg.offsetLeft;
@@ -146,9 +181,37 @@ function preftip(obj,evt){
       tooltip.css( 'max-width', $( window ).width() / 2 );
   else
       tooltip.css( 'max-width', 340 );
-  var pos_left = x- tooltip.outerWidth()/2+2, pos_top  = y - tooltip.outerHeight()-15 ;
-  tooltip.css( { left: pos_left, top: pos_top});
-  $('#explain').css({left: ox+190, top: oy+250, visibility: "visible"});
+  var pos_left = x- tooltip.outerWidth()/2+2, pos_top  = y - tooltip.outerHeight()-25 ;
+
+        if( pos_left < 0 )
+        {
+            pos_left =  20;
+            tooltip.addClass( 'left' );
+        }
+            else
+                tooltip.removeClass( 'left' );
+
+        if( pos_left + tooltip.outerWidth() > $( window ).width() )
+        {
+            pos_left = ox+ $(window).width() - tooltip.outerWidth() ;
+            tooltip.addClass( 'right' );
+        }
+            else
+                tooltip.removeClass( 'right' );
+
+        if( pos_top < 0 )
+        {
+            var pos_top  = y ;
+            tooltip.addClass( 'top' );
+        }
+            else
+                tooltip.removeClass( 'top' );
+
+
+        tooltip.css( { left: pos_left, top: pos_top } )
+            .animate( { top: '+=10', opacity: 1 }, 100 );
+
+//  $('#explain').css({left: ox+190, top: oy+250, visibility: "visible"});
     };
 
     init_tooltip();
@@ -169,37 +232,52 @@ function preftip(obj,evt){
 
 
 function basetip(obj,evt){
-    var cno = obj.correspondingElement.attributes[1].nodeValue.substr(1)*1;
+    var cno = getEvtToPref(obj,evt);
     var pn = pref[cno-1];
-    $("#label").html( "他の地域と比較してみよう("+pn+")");
+    if(pn != undefined ){
+  $("#label").html( "他の地域と比較してみよう("+pn+")");
+    }
 }
 
 
-
 function mapit(){
+    console.log("Mapit:");
 
-  console.log("Mapit")
+    var mfc1=function(evt){basetip(this,evt)};
+    var mfc2=function(evt){preftip(this,evt)};
+    var mfc3=function(evt){alert("now debuging sorry");};
+    var mfc4=function(evt){preftip(null,evt)};
 
-  var mfc1=function(evt){basetip(this,evt)};
-  var mfc2=function(evt){preftip(this,evt)};
-  var mfc3=function(evt){};
+    // safari do not load embed in "window load"..
+    // so we made delay function
+    window.setTimeout(function(){
+  var esvg = $("#esvg")[0];
+  var oy = esvg.offsetTop;
+  var ox = esvg.offsetLeft;
+//  $('#explain').css({left: ox+190, top: oy+250, visibility: "visible"});
 
-  // safari do not load embed in "window load"..
-  // so we made delay function
-  window.setTimeout(function(){
-    var esvg = $("#esvg")[0];
-    var oy = esvg.offsetTop;
-    var ox = esvg.offsetLeft;
-    $('#explain').css({left: ox+190, top: oy+250, visibility: "visible"});
-//  $('#explain').bind('mousedown', jump_diff());
+  $("#esvg")[0].getSVGDocument().childNodes[0].childNodes[1].addEventListener("mousedown",mfc4);
+  $("#esvg")[0].getSVGDocument().childNodes[0].childNodes[13].addEventListener("mousedown",mfc4);
 
-    $("#esvg")[0].getSVGDocument().documentElement.addEventListener("mousedown",mfc3);
-    baseSVGPath = $("#esvg")[0].getSVGDocument().documentElement.childNodes[3].childNodes[1].childNodes[3];
-    for(i = 0; i < 47; i++){
-      var sel =baseSVGPath.childNodes[i*2+1];
-      sel.addEventListener("mousedown",mfc2);
-      sel.addEventListener("mousemove",mfc1);
-    }
+
+    var ua = window.navigator.userAgent.toLowerCase();
+//    console.log("UA:"+ua);
+
+  if (ua.indexOf("iphone") == -1){ // not iphone
+      $("#esvg")[0].getSVGDocument().childNodes[0].childNodes[5].addEventListener("mousedown",mfc2);
+      $("#esvg")[0].getSVGDocument().childNodes[0].childNodes[15].childNodes[3].addEventListener("mousedown",mfc2);
+
+      $("#esvg")[0].getSVGDocument().childNodes[0].childNodes[5].addEventListener("mousemove",mfc1);
+      $("#esvg")[0].getSVGDocument().childNodes[0].childNodes[15].childNodes[3].addEventListener("mousemove",mfc1);
+  }else{
+      var sbg = $("#esvg")[0].getSVGDocument().documentElement.childNodes[3].childNodes[1].childNodes[3];
+      for(i = 0; i < 47; i++){
+    var sel =sbg.childNodes[i*2+1];
+    sel.addEventListener("mousedown",mfc2);
+      }
+  }
+
+  var baseSVGPath = $("#esvg")[0].getSVGDocument().documentElement.childNodes[3].childNodes[1].childNodes[3];
 
     var col = ["#00FFCC", "#CCFF33", "#FF9900", "#FF6633", "#FF0033"];
 
