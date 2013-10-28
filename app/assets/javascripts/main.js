@@ -8,7 +8,6 @@ window.fbAsyncInit = function () {
 
 var gohome = function(){
     $.removeCookie("fbid");
-    $.removeCookie("cookie_id");
     document.location="/welcome/home";
 }
 
