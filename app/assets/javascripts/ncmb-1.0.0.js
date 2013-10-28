@@ -5522,7 +5522,7 @@ var CryptoJS = CryptoJS || function (h, i) {
 
     _getData: function(options) {
       return this._data;
-    },
+    }
   });
 
 }(this));
@@ -7144,7 +7144,7 @@ var CryptoJS = CryptoJS || function (h, i) {
      */
     logIn: function(options) {
       return NCMB.User._logInWith("anonymous", options);
-    },
+    }
   };
 }(this));
 
@@ -7597,7 +7597,7 @@ var CryptoJS = CryptoJS || function (h, i) {
 
       var request = NCMB._request('push', null, null, 'POST', data);
       return request._thenRunCallbacks(options);
-    },
+    }
   
   });
 

@@ -47,7 +47,7 @@ function makeChart(target_id, title, series_name, labels, values, ccolor){
       name: series_name,
       data: values,
       color: ccolor,
-      pointPlacement: 'on',
+      pointPlacement: 'on'
     }],
   credits: {
       enabled: false
