@@ -8,7 +8,11 @@ $(document).ready(function(){
    $('#location').change(function(){
      if ($(this).val().match(/^[0-9-]+$/)){
        $("#zipcode").val($(this).val());
-       areaFromZip($(this).val(), $(this), $('#ziperror'));
+       areaFromZip($(this).val(), $(this), $('#ziperror'), $('#submit'));
+     }else{
+       $(this).toggleClass( "loading", false);
+       $('#ziperror').text('　');
+       $('#submit').button('enable')
      }
    });
    if ($.cookie('cookie_id')){

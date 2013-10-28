@@ -1,4 +1,4 @@
-function areaFromZip(zipcode, target, error){
+function areaFromZip(zipcode, target, error, button){
   $.ajax({
     url: "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode ,
     dataType : "jsonp",
@@ -6,6 +6,7 @@ function areaFromZip(zipcode, target, error){
     context : target,
     beforeSend : function(){
       target.toggleClass( "loading", true);
+      button.button('disable');
       error.text('　');
     },
     success : function(data) {
@@ -13,6 +14,7 @@ function areaFromZip(zipcode, target, error){
         rec = data.results[0];
         target.val(rec.address1 + rec.address2)
         target.toggleClass( "loading", false);
+        button.button('enable');
       }else{
         error.text('存在しない郵便番号です');
       }
