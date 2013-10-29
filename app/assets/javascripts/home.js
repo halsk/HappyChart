@@ -1,10 +1,5 @@
-$(document).ready(function(){
+$(document).on('pageinit', '#page', function(){
    console.log(window.innerWidth);
-   if(window.innerWidth < 640){
-   var fs = $("fieldset");
-   for(i = 0 ; i < 9; i++){
-       fs[i].attributes.removeNamedItem("data-type");
-   }}
    $('#location').change(function(){
      if ($(this).val().match(/^[0-9-]+$/)){
        $("#zipcode").val($(this).val());

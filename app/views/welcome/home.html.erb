@@ -43,7 +43,7 @@
 
 </script>
 <% end %>
-    <div data-role="page" data-theme="">
+    <div id="page" data-role="page" data-theme="">
       <div data-role="header" data-position="inline" data-theme="b">
         <a href="/" data-icon="home" data-ajax="false">Top</a>
          <h1 data-theme="c">Happy Chart</h1>
@@ -81,14 +81,14 @@
           <input type="hidden" name="formid" value="<%=@categories.first.form_id%>"/>
             <% @count = 1; @max = @categories.count %>
             <% @categories.each do |category| %>
-            <div data-role="fieldcontain">
-            <div class="cap">
               <!--
               <%= image_tag(category.icon_name, :class => "icon") %> （<%=@count%>問目/<%=@max%>問中）<div class="t"><%= category.title %></div><br/>
               -->
-            </div>
               <% category.questions.each do |question| %>
+            <div data-role="fieldcontain">
+            <div class="cap">
                 ・<%=question.title %>
+            </div>
               <fieldset data-role="controlgroup" data-type="horizontal"  align="center">
                 <input type="radio" name="<%=question.field_name%>" id="<%=question.field_name%>-5" value="5" />
                 <label for="<%=question.field_name%>-5">満足</label>
@@ -101,13 +101,12 @@
                 <input type="radio" name="<%=question.field_name%>" id="<%=question.field_name%>-1" value="1" />
                 <label for="<%=question.field_name%>-1">不満</label>
               </fieldset>
+          </div>
               <% end %>
             <% @count += 1 %>
             <% end %>
-          </div>
 <h3>あと少しだけ！あなたについて教えてください<br>
 よろしくお願いします。 </h3>
-</div>
 
           <div data-role="fieldcontain" data-theme="a">
               <fieldset data-role="controlgroup" data-type="horizontal">
@@ -170,12 +169,11 @@
     </div>
 <script>
 // dynamic size
-    $(document).ready(function(){
-      if(window.innerWidth < 640){
-      var fs = $("fieldset");
-      for(i = 0 ; i < 9; i++){
-        fs[i].attributes.removeNamedItem("data-type");
-      }}
+   if(window.innerWidth < 640){
+   var fs = $("fieldset");
+   for(i = 0 ; i < fs.length - 2; i++){
+       fs[i].attributes.removeNamedItem("data-type");
+   }}
   <% if @answer %>
       <% @answer.answer_details.each do |d|%>
         // somehow this didn't work
@@ -194,7 +192,6 @@
         $('#birthyear').val('<%=@answer.birth_year%>');
       <% end %>
   <% end %>
-    });
 
 </script>
 
