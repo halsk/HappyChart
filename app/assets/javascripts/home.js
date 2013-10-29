@@ -32,4 +32,20 @@ $(document).on('pageinit', '#page', function(){
   $.cookie("location",resp.location.name);
   $.cookie("hometown",resp.hometown.name);
   */
+  $("#form").submit(function(e) {
+    var self = this;
+    if (validate()){
+      return true;
+    }else{
+      e.preventDefault();
+      return false;
+    }
   });
+});
+var validate = function(){
+  if (!prefCheck($('#location').val())){
+    $('#ziperror').text('住所は都道府県から入力するか、正しい郵便番号を入れて下さい');
+    return false;
+  }
+  return true;
+}
