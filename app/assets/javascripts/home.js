@@ -20,12 +20,14 @@ $(document).ready(function(){
    }
    if($.cookie("fbid")!= undefined){
      $("#fbname").html("<h2>"+$.cookie("name")+" さん: ようこそ Happy Chartへ</h2>");
-     $("#birthyear")[0].value = $.cookie("birthday").substr(6,4);
-     if ($.cookie("location") != undefined){
-       $("#location")[0].value = $.cookie("location");
-     }
      $("#fbid").val($.cookie("fbid"));
-     $("#fbname").val($.cookie("name"));
+     if (!is_data){
+       $("#birthyear")[0].value = $.cookie("birthday").substr(6,4);
+       if ($.cookie("location") != undefined && prefCheck($.cookie('location'))){
+         $("#location")[0].value = $.cookie("location");
+       }
+       $("#fbname").val($.cookie("name"));
+     }
    }
    /*
   $.cookie("fbid",resp.id);

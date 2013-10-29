@@ -37,6 +37,7 @@
 </style>
 <script>
 
+    var is_data = false;
     var totalNum = -1;
     NCMB.initialize("73b2578802b76e8f77c859075be4ecf681dfb4f9830f1fbad3ce3e06731b32cc", "f58c65a4d666960b25399a1f953257d3bd09fc164d15bee3055ce04a93387d83");
 
@@ -169,19 +170,20 @@
     </div>
 <script>
 // dynamic size
-  <% if @answer %>
     $(document).ready(function(){
       if(window.innerWidth < 640){
       var fs = $("fieldset");
       for(i = 0 ; i < 9; i++){
         fs[i].attributes.removeNamedItem("data-type");
       }}
+  <% if @answer %>
       <% @answer.answer_details.each do |d|%>
         // somehow this didn't work
         $("input[id='<%=d.question.field_name%>-3']").attr("checked",false).checkboxradio('refresh');
         $("input[id='<%=d.question.field_name%>-<%=d.answer_rate%>']").prop("checked",true).checkboxradio('refresh');
       <% end %>
       <% if @answer %>
+        is_data = true;
         $('input[name=\'sex\']').attr('checked', null).checkboxradio('refresh');
         $('#sex-<%=@answer.sex%>').attr('checked', true).checkboxradio('refresh');
         $('input[name=\'fam_choice\']').attr('checked', null).checkboxradio('refresh');
@@ -191,8 +193,8 @@
         $('#location').val('<%=@answer.living_place%>');
         $('#birthyear').val('<%=@answer.birth_year%>');
       <% end %>
+  <% end %>
     });
 
-  <% end %>
 </script>
 
