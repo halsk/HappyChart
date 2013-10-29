@@ -29,7 +29,7 @@ function queryPref(){
     selpref=23;// default aichi
   }
   makeChart('#container0', 'わたしの幸せ','わたし', labels, values1, '#66cc00');
-  makeChart('#container1', 'みんなの幸せ','みんな', labels, values2, '#0066cc');
+  makeChart('#container1', PREF[selpref -1] + 'の幸せ','みんな', labels, values2, '#0066cc');
 }
 
 $(window).load(

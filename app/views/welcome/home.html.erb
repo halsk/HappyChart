@@ -175,6 +175,7 @@
        fs[i].attributes.removeNamedItem("data-type");
    }}
   <% if @answer %>
+    $(document).on('pageinit', '#page', function(){
       <% @answer.answer_details.each do |d|%>
         // somehow this didn't work
         $("input[id='<%=d.question.field_name%>-3']").attr("checked",false).checkboxradio('refresh');
@@ -191,6 +192,7 @@
         $('#location').val('<%=@answer.living_place%>');
         $('#birthyear').val('<%=@answer.birth_year%>');
       <% end %>
+      });
   <% end %>
 
 </script>
